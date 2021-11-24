@@ -1,3 +1,7 @@
+# Coisas a Fazer:
+- Adicionar imóvel
+- Reserva de Imóvel
+
 # airbnbclonefront
 
 url: https://server-airbnbclone-1226.herokuapp.com

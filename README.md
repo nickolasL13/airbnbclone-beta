@@ -1,8 +1,8 @@
 # Coisas a Fazer:
-- Adicionar imóvel 
-- Reserva de Imóvel
-- Ajuste de Pesquisa
-- Ajuste de Conexão com Mongo
+- Ajuste de Pesquisa (24/11)
+- Ajuste de Conexão com Mongo (24/11)
+- Adicionar imóvel (25/11 - 26/11)
+- Reserva de Imóvel (25/11 - 26/11)
 
 # airbnbclonefront
 

@@ -1,6 +1,8 @@
 # Coisas a Fazer:
-- Adicionar imóvel
+- Adicionar imóvel 
 - Reserva de Imóvel
+- Ajuste de Pesquisa
+- Ajuste de Conexão com Mongo
 
 # airbnbclonefront
 

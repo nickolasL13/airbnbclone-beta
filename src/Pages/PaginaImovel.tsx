@@ -5,6 +5,7 @@ import fetch from 'node-fetch';
 import { Container, Button, Col, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/index.css';
+import { multiplica } from '../backend/useful/multiplicar';
 
 
 export default function PaginaImovel() {
@@ -14,6 +15,11 @@ export default function PaginaImovel() {
     const [url, setUrl] = useState(process.env.URL!);
     const [carregando, setCarregando] = useState(false);
     const [erro, setErro] = useState(false);
+
+ 
+
+      let diasReserva = 3;
+
 
     useEffect(() => {
         async function consultarWebServer() {
@@ -67,7 +73,9 @@ export default function PaginaImovel() {
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
-                                    <h5 className="price">R${dados[0].pricePerNight} / Noite</h5>
+                                    <h5 className="priceNight">R${dados[0].pricePerNight} / Noite</h5>
+                                    <h4 className="priceTotal">R${multiplica((dados[0].pricePerNight),diasReserva)} / Total </h4>
+                                    <h4> por {diasReserva} noites</h4>
                                     <h6 className="offers">O que esse lugar oferece???</h6>
                                     <div>{dados[0].arCond && (" • Ar Condicionado")}{dados[0].wifi && (" • Wifi")}{dados[0].cozinha && (" • Cozinha")}{dados[0].freeParking && (" • Estacionamento Gratuito")}{dados[0].piscina && (" • Piscina • ")} </div>
                                 </Col>

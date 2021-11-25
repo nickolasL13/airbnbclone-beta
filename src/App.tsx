@@ -98,6 +98,8 @@ function App() {
 
             <Nav.Link as={NavLink} to="/piscina">Piscina</Nav.Link>
 
+            <Nav.Link as={NavLink} to="/cadastro">Cadastro</Nav.Link>
+
           </Nav>
         </Navbar>
       </header>

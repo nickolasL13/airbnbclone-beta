@@ -50,7 +50,8 @@ export default function PaginaImovel() {
                                 variant="light"
                             >
                                 <h6>{dados[0].lugar.endereco}, {dados[0].lugar.cidade}, {dados[0].lugar.estado}, Brasil</h6>
-                                <img src={`/images/${dados[0].photo}`} alt="" className="ImageButton" />
+                               {/* <img src={`/images/${dados[0].photo}`} alt="" className="ImageButton" />*/}
+                               <img src={`${dados[0].photo}`} alt="" className="ImageButton" />
                                 <Col className="ImovelButton">
                                     <div>Espaço inteiro: {dados[0].espaco}</div>
                                     <h6>{dados[0].label}</h6>

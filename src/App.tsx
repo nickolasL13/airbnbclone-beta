@@ -3,6 +3,7 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, NavDropdown, Button, InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./css/index.css";
+import { ToastContainer } from 'react-toastify';
 
 
 function App() {
@@ -97,6 +98,8 @@ function App() {
             <Nav.Link as={NavLink} to="/freePark">Estacionamento Gratuito</Nav.Link>
 
             <Nav.Link as={NavLink} to="/piscina">Piscina</Nav.Link>
+
+            <Nav.Link as={NavLink} to="/cadastro">Cadastro</Nav.Link>
 
           </Nav>
         </Navbar>

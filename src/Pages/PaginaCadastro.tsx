@@ -11,7 +11,7 @@ import { useNavigate, useParams } from 'react-router';
 export default function PaginaCadastro() {
   let navigate = useNavigate();
   const [dados, setDados] = useState<Imovel>();
-  const [acao, setAcao] = useState('inserir');
+  const [acao, setAcao] = useState('tabela');
   const [Id, setId] = useState('0');
 
   const [cidade, setCidade] = useState('');
@@ -135,11 +135,113 @@ export default function PaginaCadastro() {
 <div className="container">
 <div className="row">
 
+
+{(acao=='tabela') &&
+ dados && (
+  
+
+<div>
+  <form onSubmit={event => {
+    setUrl(`https://ws-airbnbclone-1226.herokuapp.com`);
+    setAcao('inserir');
+     event.preventDefault();
+ }}
+  >
+    <button
+        className='btn btn-success'
+            type="submit">
+            Novo
+    </button>
+    </form>
+        
+        <div className="col">
+        <div className="card" style={{width: '80%'}}>
+          <div className="card-body">
+            <div className="card-caption">
+    
+    <table  width={'98%'} className='table'>
+              <tr>
+                <th scope="col">Espaço</th>
+                <th scope="col">Label</th>
+                <th scope="col">Acomodações</th>
+                <th scope="col">Oferecimentos</th>
+                <th scope="col">Ação</th>
+              </tr>
+
+              {dados.map((dados: Imovel) =>{
+
+                return(
+                 
+                <tr className='evenRow'>
+                  <td scope="row">{dados.espaco}</td>
+                  <td scope="row">{dados.label}</td>
+                  <td scope="row">
+                  {dados.nHospedes} Hóspedes | 
+                  {dados.nQuartos} Quartos | 
+                  {dados.nCamas} Camas | 
+                  {dados.nBanheiros} Banheiros
+                  </td>
+                  <td scope="row">
+                  {dados.arCond} Ar Condicionado | 
+                  {dados.wifi} Wifi | 
+                  {dados.cozinha} Cozinha | 
+                  {dados.freeParking} Estacionamento | 
+                  {dados.piscina} Piscina
+                  </td>
+                  <td scope="row">
+                  
+                  <button
+                    className='btn btn-warning'
+                    
+                    onClick={() => {
+                      navigate(`/cadastroEdicao/${dados.iId}`);
+                   }}>
+                    Editar
+                  
+                  </button>
+                  
+                  <form onSubmit={event => {
+                      setAcao('tabela')
+                      setUrl(`https://ws-airbnbclone-1226.herokuapp.com/`);
+                      event.preventDefault();
+                  }}
+                  
+                  style={
+                  { 
+                    float: 'left' , 
+                    display: 'inline-block'
+                  }}
+                   >
+                  
+                  <button
+                    className='btn btn-danger'
+                    type="submit">
+                    Excluir
+                  </button>
+                  </form>
+                  </td>
+                </tr>
+                
+              )
+              })}
+
+            </table>
+             </div>
+             </div>
+             </div>
+             </div>
+             </div>
+      )
+}
+
+
 {(acao=='inserir') && (
   <><form onSubmit={event => {
                           setAcao('tabela');
                           setUrlInsertUpdate(`https://ws-airbnbclone-1226.herokuapp.com/`);
-                          success();
+                          <ToastContainer>
+                              success();
+                          </ToastContainer>
                           event.preventDefault();
                       } }>
 
@@ -494,6 +596,8 @@ export default function PaginaCadastro() {
     </form>
     </>
 )}
+
+
 
 
 </div>

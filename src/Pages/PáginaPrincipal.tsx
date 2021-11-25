@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Imovel from '../backend/DTO/dtos2';
+import Imovel from '../backend/DTO/dtos';
 import fetch from 'node-fetch';
 import { Button, ButtonGroup, Container, Col } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
@@ -47,8 +47,8 @@ export default function PaginaPrincipal() {
                                         navigate(`/imovel/${i.iId}`)
                                     }}
                                     >
-                                        <img src={`${i.urlphoto}`} alt="" className="ImageButton"/>
-                                        Foto: {`${i.urlphoto}`} 
+                                        <img src={`${i.photo}`} alt="" className="ImageButton"/>
+                                        Foto: {`${i.photo}`} 
                                     <Col className="ImovelButton">
                                         <div>Espaço inteiro: {i.espaco}</div>
                                         <h6>{i.label}</h6>

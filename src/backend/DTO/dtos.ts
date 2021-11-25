@@ -15,6 +15,7 @@ interface Lugar {
 }
 
 export default interface Imovel {
+    [x: string]: any;
     iId: string,
     espaco: string
     label: string,

@@ -64,7 +64,7 @@ export default function PaginaImovel() {
           email:     email,
           total:    total
         };
-        const resposta = await fetch('http://localhost:3000/locacao/', {
+        const resposta = await fetch('http://localhost:5000/locacao/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

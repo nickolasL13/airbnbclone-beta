@@ -16,11 +16,6 @@ export default function PaginaCadastro() {
     const [estado, setEstado] = useState('');
     const [endereco, setEndereco] = useState('');
 
-    const [cobraS, setCobraS] = useState(false);
-    const [valorPerDay, setValorPerDay] = useState(0);
-    const [cobrat, setCobraT] = useState(false);
-    const [valor, setValor] = useState(0);
-
     const [iId, setiId] = useState('');
     const [espaco, setEspaco] = useState('');
     const [label, setLabel] = useState('');
@@ -36,8 +31,8 @@ export default function PaginaCadastro() {
     const [pricePerNight, setPerNight] = useState(0);
     const [descricao, setDescricao] = useState('');
     const [lugar, setLugar] = useState({ cidade: cidade, estado: estado, endereco: endereco });
-    const [taxaDeServico, setTaxaDeServico] = useState({ cobra: cobraS, valorPerDay: valorPerDay });
-    const [taxaDeLimpeza, setTaxaDeLimpeza] = useState({ cobra: cobrat, valor: valor });
+    const [taxaDeServico, setTaxaDeServico] = useState<{ cobra: boolean, valor: number | undefined }>({ cobra: false, valor: undefined });
+    const [taxaDeLimpeza, setTaxaDeLimpeza] = useState<{ cobra: boolean, valor: number | undefined }>({ cobra: false, valor: undefined });
     const [photo, setphoto] = useState('');
 
     const [carregando, setCarregando] = useState(false);
@@ -122,8 +117,11 @@ export default function PaginaCadastro() {
 
     return (
         <div className="abulebule">
+            <hr />
             <form className='pocoyo'>
-                Espaço:
+                <div className='texto'>
+                    Espaço:
+                </div>
                 <input
                     type="text"
                     name="espaco"
@@ -135,7 +133,9 @@ export default function PaginaCadastro() {
                     pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
             </form>
             <form className='pocoyo'>
-                Label:
+                <div className='texto'>
+                    Label:
+                </div>
                 <input
                     type="text"
                     name="Label"
@@ -147,7 +147,23 @@ export default function PaginaCadastro() {
                     pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
             </form>
             <form className='pocoyo'>
-                Url da Foto:
+                <div className='texto'>
+                    Descrição:
+                </div>
+                <input
+                    type="text"
+                    name="descricao"
+                    className="form-control"
+                    onChange={(event) => {
+                        setDescricao(event.target.value);
+                    }}
+                    required
+                    pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
+            </form>
+            <form className='pocoyo'>
+                <div className='texto'>
+                    Url da Foto:
+                </div>
                 <input
                     type="text"
                     name="Label"
@@ -160,9 +176,12 @@ export default function PaginaCadastro() {
             <form className='pocoyo'>
                 <a href="#" className="card-link"><img src={photo} width="98%" height="320px" /></a>
             </form>
+
             <hr />
             <form className='pocoyo'>
-                Hóspedes:
+                <div className='texto'>
+                    Hóspedes:
+                </div>
                 <input
                     type="text"
                     name="nhospedes"
@@ -174,7 +193,9 @@ export default function PaginaCadastro() {
                     pattern="[0-9]+$" />
             </form>
             <form className='pocoyo'>
-                <label className="form-label">Quartos: </label>
+                <div className='texto'>
+                    Quartos:
+                </div>
                 <input
                     type="text"
                     name="nquartos"
@@ -189,7 +210,9 @@ export default function PaginaCadastro() {
                 </div>
             </form>
             <form className='pocoyo'>
-                Camas:
+                <div className='texto'>
+                    Camas:
+                </div>
                 <input
                     type="text"
                     name="ncamas"
@@ -201,7 +224,9 @@ export default function PaginaCadastro() {
                     pattern="[0-9]+$" />
             </form>
             <form className='pocoyo'>
-                Banheiros:
+                <div className='texto'>
+                    Banheiros:
+                </div>
                 <input
                     type="text"
                     name="nbanheiros"
@@ -212,93 +237,103 @@ export default function PaginaCadastro() {
                     required
                     pattern="[0-9]+$" />
             </form>
-            <form className='pocoyo'>
-                Ar Condicionado: [1=sim/0=não]
-                <input
-                    type="text"
-                    name="arcond"
-                    className="form-control"
-                    onChange={(event) => {
-                        setArcond(Boolean(event.target.value));
-                    }}
-                    required
-                    pattern="[0-9]+$" />
-            </form>
-            <form className='pocoyo'>
-                wifi: [sim/não]
-                <input
-                    type="text"
-                    name="wifi"
-                    className="form-control"
-                    onChange={(event) => {
-                        setWifi(Boolean(event.target.value));
-                    }}
-                    required
-                    pattern="[0-9]+$" />
-            </form>
-            <form className='pocoyo'>
-                Cozinha: [sim/não]
-                <input
-                    type="text"
-                    name="cozinha"
-                    className="form-control"
-                    onChange={(event) => {
-                        setCozinha(Boolean(event.target.value));
-                    }}
-                    required
-                    pattern="[0-9]+$" />
-            </form>
-            <form className='pocoyo'>
-                FreeParking: [sim/não]
-                <input
-                    type="text"
-                    name="freeparking"
-                    className="form-control"
-                    onChange={(event) => {
-                        setFreeParking(Boolean(event.target.value));
-                    }}
-                    required
-                    pattern="[0-9]+$" />
-            </form>
-            <form className='pocoyo'>
-                Piscina: [sim/não]
-                <input
-                    type="text"
-                    name="piscina"
-                    className="form-control"
-                    onChange={(event) => {
-                        setPiscina(Boolean(event.target.value));
-                    }}
-                    required
-                    pattern="[0-9]+$" />
-            </form>
-            <form className='pocoyo'>
-                Price Per Night: [Ex: 100,00]
-                <input
-                    type="text"
-                    name="pricepernight"
-                    className="form-control"
-                    onChange={(event) => {
-                        setPerNight(parseInt(event.target.value));
-                    }}
-                    required
-                    pattern="[0-9]+$" />
-            </form>
-            <form className='pocoyo'>
-                Descrição: [Ex: com quarto...]
-                <input
-                    type="text"
-                    name="descricao"
-                    className="form-control"
-                    onChange={(event) => {
-                        setDescricao(event.target.value);
-                    }}
-                    required
-                    pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
-            </form>
+            <hr />
+            <div className='oferecimentosCadastro'>
+                <label className="oferecimentosLabel">
+                    Ar Condicionado
+                </label>
+                <div className="form-check form-switch">
+                    <input
+                        className="form-check-input"
+                        type="checkbox"
+                        role="switch"
+                        onChange={(event) => {
+                            setArcond(!arCond);
+                        }}
+                    />
+                </div>
+                <label className="possui">
+                    {arCond && (<b>Possui!</b>)}
+                </label>
+            </div>
+            <div className='oferecimentosCadastro'>
+                <label className="oferecimentosLabel">
+                    Wifi
+                </label>
+                <div className="form-check form-switch">
+                    <input
+                        className="form-check-input"
+                        type="checkbox"
+                        role="switch"
+                        onChange={(event) => {
+                            setWifi(!wifi);
+                        }}
+                    />
+                </div>
+                <label className="possui">
+                    {wifi && (<b>Possui!</b>)}
+                </label>
+            </div>
+            <div className='oferecimentosCadastro'>
+                <label className="oferecimentosLabel">
+                    Cozinha
+                </label>
+                <div className="form-check form-switch">
+                    <input
+                        className="form-check-input"
+                        type="checkbox"
+                        role="switch"
+                        onChange={(event) => {
+                            setCozinha(!cozinha);
+                        }}
+                    />
+                </div>
+                <label className="possui">
+                    {cozinha && (<b>Possui!</b>)}
+                </label>
+            </div>
+            <div className='oferecimentosCadastro'>
+                <label className="oferecimentosLabel">
+                    Estacionamento
+                </label>
+                <div className="form-check form-switch">
+                    <input
+                        className="form-check-input"
+                        type="checkbox"
+                        role="switch"
+                        onChange={(event) => {
+                            setFreeParking(!freeParking);
+                        }}
+                    />
+                </div>
+                <label className="possui">
+                    {freeParking && (<b>Possui!</b>)}
+                </label>
+            </div>
+            <div className='oferecimentosCadastro'>
+                <label className="oferecimentosLabel">
+                    Piscina
+                </label>
+                <div className="form-check form-switch">
+                    <input
+                        className="form-check-input"
+                        type="checkbox"
+                        role="switch"
+                        onChange={(event) => {
+                            setPiscina(!piscina);
+                        }}
+                    />
+                </div>
+                <label className="possui">
+                    {piscina && (<b>Possui!</b>)}
+                </label>
+            </div>
+
             <hr />
             <form className='pocoyo'>
-                Cidade: [Ex: Hotel paulista]
+                <div className='texto'>
+                    Cidade:
+                </div>
                 <input
                     type="text"
                     name="lugar"
@@ -311,7 +346,9 @@ export default function PaginaCadastro() {
                     pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
             </form>
             <form className='pocoyo'>
-                Estado: [Ex: RS]
+                <div className='texto'>
+                    Estado:
+                </div>
                 <input
                     type="text"
                     name="estado"
@@ -324,7 +361,9 @@ export default function PaginaCadastro() {
                     pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
             </form>
             <form className='pocoyo'>
-                Endereço: [Ex: Rua das Flores]
+                <div className='texto'>
+                    Endereço:
+                </div>
                 <input
                     type="text"
                     name="endereco"
@@ -338,54 +377,76 @@ export default function PaginaCadastro() {
             </form>
             <hr />
             <form className='pocoyo'>
-                Cobra: [sim/não]
+                <div className='texto'>
+                    Cobra:
+                </div>
                 <input
                     type="text"
                     name="cobra"
                     className="form-control"
-                    onChange={(event) => {
-                        setCobraS(Boolean(event.target.value));
-                        setTaxaDeServico({ cobra: cobraS, valorPerDay: valorPerDay });
-                    }}
+                    // onChange={(event) => {
+                    //     setCobraS(Boolean(event.target.value));
+                    //     setTaxaDeServico({ cobra: cobraS, valorPerDay: valorPerDay });
+                    // }}
                     required
                     pattern="[0-9]+$" />
             </form>
             <form className='pocoyo'>
-                Valor por Dia: [Ex: 100,00]
+                <div className='texto'>
+                    Valor por Dia:
+                </div>
                 <input
                     type="text"
                     name="valorperday"
                     className="form-control"
-                    onChange={(event) => {
-                        setValorPerDay(parseInt(event.target.value));
-                        setTaxaDeServico({ cobra: cobraS, valorPerDay: valorPerDay });
-                    }}
+                    // onChange={(event) => {
+                    //     setValorPerDay(parseInt(event.target.value));
+                    //     setTaxaDeServico({ cobra: cobraS, valorPerDay: valorPerDay });
+                    // }}
                     required
                     pattern="[0-9]+$" />
             </form>
             <hr />
             <form className='pocoyo'>
-                Cobra: [sim/não]
+                <div className='texto'>
+                    Cobra:
+                </div>
                 <input
                     type="text"
                     name="cobra"
                     className="form-control"
-                    onChange={(event) => {
-                        setCobraT(Boolean(event.target.value));
-                        setTaxaDeLimpeza({ cobra: cobrat, valor: valor });
-                    }}
+                    // onChange={(event) => {
+                    //     setCobraT(Boolean(event.target.value));
+                    //     setTaxaDeLimpeza({ cobra: cobrat, valor: valor });
+                    // }}
                     required
                     pattern="[0-9]+$" />
             </form>
             <form className='pocoyo'>
-                Valor: [Ex: 100,00]
+                <div className='texto'>
+                    Valor:
+                </div>
                 <input
                     type="text"
                     name="valor"
                     className="form-control"
+                    // onChange={(event) => {
+                    //     setValor(parseInt(event.target.value));
+                    //     setTaxaDeLimpeza({ cobra: cobrat, valor: valor });
+                    // }}
+                    required
+                    pattern="[0-9]+$" />
+            </form>
+            <form className='pocoyo'>
+                <div className='texto'>
+                    Price Per Night:
+                </div>
+                <input
+                    type="text"
+                    name="pricepernight"
+                    className="form-control"
                     onChange={(event) => {
-                        setValor(parseInt(event.target.value));
-                        setTaxaDeLimpeza({ cobra: cobrat, valor: valor });
+                        setPerNight(parseInt(event.target.value));
                     }}
                     required
                     pattern="[0-9]+$" />

@@ -20,7 +20,7 @@ export default function PaginaPrincipal() {
             setErro(false);
             setCarregando(true);
             try {
-                const resultado = await fetch('https://ws-airbnbclone-1226.herokuapp.com');
+                const resultado = await fetch(`http://localhost:5000/cidade/${params.cidade}`);
                 if (resultado.ok) {
                     const dados: Array<Imovel> = await resultado.json();
                     setDados(dados);
@@ -40,8 +40,7 @@ export default function PaginaPrincipal() {
     useEffect(() => {
         function Elements(dados: Array<Imovel>) {
             let element = [];
-            for (let i of dados) {
-                if (i.lugar.cidade.toLowerCase().indexOf(params.cidade!.toLowerCase()) !== -1) {
+            for (let i of dados) { 
                     element.push(
                         <>
                             <Container className="ImovelContainer">
@@ -66,8 +65,7 @@ export default function PaginaPrincipal() {
                             </Container>
 
                         </>
-                    );
-                }
+                    );              
             }
 
             setElements(element);

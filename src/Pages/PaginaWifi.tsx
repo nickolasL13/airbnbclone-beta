@@ -20,7 +20,7 @@ export default function PaginaPrincipal() {
             setErro(false);
             setCarregando(true);
             try {
-                const resultado = await fetch('https://ws-airbnbclone-1226.herokuapp.com');
+                const resultado = await fetch('http://localhost:5000/wifi');
                 if (resultado.ok) {
                     const dados: Array<Imovel> = await resultado.json();
                     setDados(dados);

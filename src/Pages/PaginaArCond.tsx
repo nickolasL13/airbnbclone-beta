@@ -20,7 +20,7 @@ export default function PaginaPrincipal() {
             setErro(false);
             setCarregando(true);
             try {
-                const resultado = await fetch('https://ws-airbnbclone-1226.herokuapp.com');
+                const resultado = await fetch('http://localhost:5000/arCond');
                 if (resultado.ok) {
                     const dados: Array<Imovel> = await resultado.json();
                     setDados(dados);
@@ -41,33 +41,31 @@ export default function PaginaPrincipal() {
         function Elements(dados: Array<Imovel>) {
             let element = [];
             for (let i of dados) {
-                if (i.arCond) {
-                    element.push(
-                        <>
-                            <Container className="ImovelContainer">
-                                <Button
-                                    variant="light"
-                                    onClick={() => {
-                                        navigate(`/imovel/${i.iId}`)
-                                    }}>
-                                         <img src={`/images/${i.photo}`} alt="" className="ImageButton"/>
-                                    <Col className="ImovelButton">
-                                        <div>Espaço inteiro: {i.espaco}</div>
-                                        <h6>{i.label}</h6>
-                                        <div>
-                                            {i.nHospedes} hóspedes • {i.nQuartos} quartos • {i.nCamas} camas • {i.nBanheiros} banheiros
-                                        </div>
-                                        <div> ~~~~ </div>
-                                        <div>{i.arCond && (" • Ar Condicionado • ")}{i.wifi && ("Wifi • ")} {i.cozinha && ("Cozinha • ")} {i.freeParking && ("Estacionamento Gratuito • ")} </div>
-                                        <div> ~~~~ </div>
-                                        <h5>R${i.pricePerNight} / Noite</h5>
-                                    </Col>
-                                </Button>
-                            </Container>
+                element.push(
+                    <>
+                        <Container className="ImovelContainer">
+                            <Button
+                                variant="light"
+                                onClick={() => {
+                                    navigate(`/imovel/${i.iId}`)
+                                }}>
+                                <img src={`/images/${i.photo}`} alt="" className="ImageButton" />
+                                <Col className="ImovelButton">
+                                    <div>Espaço inteiro: {i.espaco}</div>
+                                    <h6>{i.label}</h6>
+                                    <div>
+                                        {i.nHospedes} hóspedes • {i.nQuartos} quartos • {i.nCamas} camas • {i.nBanheiros} banheiros
+                                    </div>
+                                    <div> ~~~~ </div>
+                                    <div>{i.arCond && (" • Ar Condicionado • ")}{i.wifi && ("Wifi • ")} {i.cozinha && ("Cozinha • ")} {i.freeParking && ("Estacionamento Gratuito • ")} </div>
+                                    <div> ~~~~ </div>
+                                    <h5>R${i.pricePerNight} / Noite</h5>
+                                </Col>
+                            </Button>
+                        </Container>
 
-                        </>
-                    );
-                }
+                    </>
+                );
             }
 
             setElements(element);
@@ -78,7 +76,7 @@ export default function PaginaPrincipal() {
 
     return (
         <>
-           
+
             {erro && <div>Ocorreu um erro!</div>}
             {carregando ? (
                 <div>Carregando...</div>

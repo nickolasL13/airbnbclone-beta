@@ -12,7 +12,7 @@ body {
 }
 
 .botaolindo {
-    color: red;
+    color: rgb(232,90,93);
     border-radius: 50px;
     height: max-content;
     margin-left: 210px;
@@ -33,19 +33,17 @@ body {
 }
 
 .navbar-light .navbar-brand {
-    color: red;
+    color: rgb(232,90,93);
     margin-left: 15px;
 }
 
 .vyn {
     margin-left: 200px;
-    color: red;
+    color: rgb(232,90,93);
 }
 
 .ImovelContainer {
-    margin-left:15px;
     margin-bottom: 15px;
-    width: 450px;
 }
 
 .ImovelButton {
@@ -53,14 +51,12 @@ body {
 }
 
 .welcome {
-    margin-left: 143px;
     margin-top: 20px;
     margin-bottom: 20px;
-    color: red;
+    color: rgb(232,90,93);
 }
 
 .mb-3 {
-    margin-left: 1.1%;
     margin-top: 30px;
     margin-bottom: 60px;
     width: 500px;
@@ -94,5 +90,26 @@ body {
 }
 
 .offers {
-    color: red;
+    color: rgb(232,90,93);
+}
+
+.cadastro {
+    border: solid rgb(232,90,93);
+    border-radius: 10px;
+    border-width: 2px;
+    margin-left: 8px;
+}
+
+.cad {
+    color: rgb(232,90,93);
+}
+
+.teste {
+    width: 100%;
+}
+
+.form {
+    margin-bottom: 2%;
+    margin-top: 1%;
+    margin-left:70%;
 }

@@ -25,7 +25,6 @@ ReactDOM.render(
       <Route path= "/" element={<App />}>
         <Route index element={< PaginaPrincipal />}/>
         <Route path= "*" element= {<PaginaNaoEncontrada />}/>
-        <Route path="cadastro" element= {< PaginaCadastro/>} />
         <Route path="arCond" element= {< PaginaArCond/>} />
         <Route path="wifi" element= {< PaginaWifi/>} />
         <Route path="cozinha" element= {< PaginaCozinha/>} />
@@ -36,6 +35,7 @@ ReactDOM.render(
         <Route path="espaco/:espaco" element= {<PaginaEspaco />} />
         <Route path="cidade/:cidade" element= {<PaginaCidade />} />
         <Route path="estado/:estado" element= {<PaginaEstado />} />
+        <Route path="cadastro" element= {<PaginaCadastro />} />
       </Route>
     </Routes>
     </BrowserRouter>

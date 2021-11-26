@@ -16,17 +16,14 @@ export default function PaginaImovel() {
     const [carregando, setCarregando] = useState(false);
     const [erro, setErro] = useState(false);
 
- 
-
-      let diasReserva = 3;
-
+    let diasReserva = 3;
 
     useEffect(() => {
         async function consultarWebServer() {
             setErro(false);
             setCarregando(true);
             try {
-                const resultado = await fetch(`https://ws-airbnbclone-1226.herokuapp.com/${params.id}`);
+                const resultado = await fetch(`http://localhost:5000/imovel/${params.id}`);
                 if (resultado.ok) {
                     const dados: Array<Imovel> = await resultado.json();
                     setDados(dados);

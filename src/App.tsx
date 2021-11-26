@@ -3,6 +3,7 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, NavDropdown, Button, InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./css/index.css";
+import { ToastContainer } from 'react-toastify';
 
 
 function App() {
@@ -98,11 +99,14 @@ function App() {
 
             <Nav.Link as={NavLink} to="/piscina">Piscina</Nav.Link>
 
+            <Nav.Link as={NavLink} to="/cadastro" className="cadastro"> <b className="cad">Cadastro</b> </Nav.Link>
+
           </Nav>
         </Navbar>
       </header>
-      <main className="main">
-        <h5 className="welcome">Bem-vindo ao Airbnb Clone!</h5>
+      <main >
+        <h5 className="d-flex justify-content-center welcome"><b>Bem-vindo ao Airbnb Clone!</b></h5>
+        <div className="d-flex justify-content-center" >
         <InputGroup className="mb-3">
           <DropdownButton
             variant="outline-secondary"
@@ -145,10 +149,11 @@ function App() {
             Pesquisar
           </Button>
         </InputGroup>
-        <Outlet></Outlet>
+        </div>
+        <section className="d-flex justify-content-center teste"> <Outlet /> </section>
       </main>
       <footer className="main">
-        <h6 className="vyn"> Airbnb Clone v.yn </h6>
+        <h6 className="vyn"> Airbnb Clone v.ynmf </h6>
       </footer>
     </>
   );

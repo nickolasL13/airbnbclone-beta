@@ -17,7 +17,8 @@ export default function PaginaPrincipal() {
             setErro(false);
             setCarregando(true);
             try {
-                const resultado = await fetch('https://ws-airbnbclone-1226.herokuapp.com');
+                const resultado = await fetch('http://localhost:5000/');
+                console.log(resultado, "Deu certo sim askdaskd as", process.env.URL_DEV);
                 if (resultado.ok) {
                     const dados: Array<Imovel> = await resultado.json();
                     setDados(dados);
@@ -40,7 +41,7 @@ export default function PaginaPrincipal() {
             for (let i of dados) {
                 element.push(
                     <>
-                            <Container className="ImovelContainer">
+                            <Container className="d-flex justify-content-center ImovelContainer ">
                                 <Button
                                     variant="light"
                                     onClick={() => {

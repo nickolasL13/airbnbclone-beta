@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Imovel from './../backend/DTO/dtos';
+import Imovel from '../backend/DTO/dtos';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { useNavigate, useParams } from 'react-router';
@@ -10,7 +10,6 @@ import { useNavigate, useParams } from 'react-router';
 export default function PaginaCadastro() {
     let navigate = useNavigate();
     const [dados, setDados] = useState<Imovel[]>();
-    const [acao, setAcao] = useState('tabela');
     const [Id, setId] = useState('0');
 
     const [cidade, setCidade] = useState('');
@@ -122,418 +121,284 @@ export default function PaginaCadastro() {
     }, [urlInsertUpdate]);
 
     return (
-        <div className="d-flex justify-content-center lista">
-            <div>
-                <div className="row">
-
-                    {(acao == 'tabela') &&
-                        dados && (
-                            <div>
-                                <form onSubmit={event => {
-                                    setUrl(`https://ws-airbnbclone-1226.herokuapp.com`);
-                                    setAcao('inserir');
-                                    success();
-                                    event.preventDefault();
-                                }}
-                                className="d-flex justify-content-center form">
-                                    <button
-                                        className='btn btn-success'
-                                        type="submit">
-                                        Novo
-                                    </button>
-                                </form>
-
-                                <div className="d-flex justify-content-center col">
-                                    <div className="card" style={{ width: '80%' }}>
-                                        <div className="card-body">
-                                            <div className="card-caption">
-                                                <table width={'98%'} className='table'>
-                                                    <tr>
-                                                        <th scope="col">Label</th>
-                                                        <th scope="col">Espaço</th>
-                                                        <th scope="col">Acomodações</th>
-                                                        <th scope="col">Oferecimentos</th>
-                                                        <th scope="col">Ação</th>
-                                                    </tr>
-                                                    {dados.map((dados: Imovel) => {
-                                                        return (
-                                                            <tr className='evenRow'>
-                                                                <td scope="row" className='label'>{dados.label}</td>
-                                                                <td scope="row" className='espaco'>{dados.espaco}</td>
-                                                                <td scope="row" className='acomodacoes'>
-                                                                    <div className='p'>
-                                                                    {dados.nHospedes} Hóspedes 
-                                                                    </div>
-                                                                    <div className='p'>                                                                   
-                                                                    {dados.nQuartos} Quartos 
-                                                                    </div>
-                                                                    <div className='p'>
-                                                                    {dados.nBanheiros} Banheiros
-                                                                    </div>
-                                                                    <div className='p'>
-                                                                    {dados.nCamas} Camas
-                                                                    </div>
-
-                                                                </td>
-                                                                <td scope="row" className='oferecimentos'>
-                                                                        {(dados.arCond) && (<div className='o'> Ar Condicionado </div>)}
-                                                                        {(dados.wifi) && (<div className='o'> Wifi </div>)}
-                                                                        {(dados.cozinha) && (<div className='o'> Cozinha </div>)}
-                                                                        {(dados.piscina) && (<div className='o'> Piscina </div>)}
-                                                                        {(dados.freeParking) && (<div className='o'> Estacionamento Gratuito </div>)}
-
-                                                                </td>
-                                                                <td scope="row">
-
-                                                                    <button
-                                                                        className='btn btn-warning'
-                                                                        onClick={() => {
-                                                                            navigate(`/cadastroEdicao/${dados.iId}`);
-                                                                        }}>
-                                                                        Editar
-                                                                    </button>
-
-                                                                    <form onSubmit={event => {
-                                                                        setAcao('tabela')
-                                                                        setUrl(`https://ws-airbnbclone-1226.herokuapp.com/`);
-                                                                        event.preventDefault();
-                                                                    }}
-                                                                        style={
-                                                                            {
-                                                                                float: 'left',
-                                                                                display: 'inline-block'
-                                                                            }}>
-                                                                        <button
-                                                                            className='btn btn-danger'
-                                                                            type="submit">
-                                                                            Excluir
-                                                                        </button>
-                                                                    </form>
-                                                                </td>
-                                                            </tr>
-                                                        )
-                                                    })}
-
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    }
-
-
-                    {(acao == 'inserir') && (
-                        <>
-                            <form onSubmit={event => {
-                                setAcao('tabela');
-                                setUrlInsertUpdate(`https://ws-airbnbclone-1226.herokuapp.com/`);
-                                success();
-                                event.preventDefault();
-                            }}>
-                                <div className="col">
-                                    <div className="card" style={{ width: '80%' }}>
-                                        <div className="card-body">
-                                            <div className="card-caption">
-                                                <p className="form-control">
-                                                    iId:
-                                                    <input
-                                                        type="text"
-                                                        name="iId"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setiId(event.target.value);
-                                                        }}
-                                                        required />
-                                                </p>
-                                                <p className="form-control">
-                                                    Espaço:
-                                                    <input
-                                                        type="text"
-                                                        name="espaco"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setEspaco(event.target.value);
-                                                        }}
-                                                        required
-                                                        pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
-                                                </p>
-                                                <p className="form-control">
-                                                    Label:
-                                                    <input
-                                                        type="text"
-                                                        name="Label"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setLabel(event.target.value);
-                                                        }}
-                                                        required
-                                                        pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
-                                                </p>
-                                                <p className="form-control">
-                                                    Url da Foto:
-                                                    <input
-                                                        type="text"
-                                                        name="Label"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setphoto(event.target.value);
-                                                        }}
-                                                        required />
-                                                </p>
-                                                <p className="form-control">
-                                                    <a href="#" className="card-link"><img src={photo} width="98%" height="320px" /></a>
-                                                </p>
-                                                <hr />
-                                                <p className="form-control">
-                                                    Hóspedes:
-                                                    <input
-                                                        type="text"
-                                                        name="nhospedes"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setnHospedes(parseInt(event.target.value));
-                                                        }}
-                                                        required
-                                                        pattern="[0-9]+$" />
-                                                </p>
-                                                <p className="form-control">
-                                                    <label className="form-label">Quartos: </label>
-                                                    <input
-                                                        type="text"
-                                                        name="nquartos"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setnQuartos(parseInt(event.target.value));
-                                                        }}
-                                                        required
-                                                        pattern="[0-9]+$" />
-                                                    <div className="valid-feedback">
-                                                        Ok!
-                                                    </div>
-                                                </p>
-                                                <p className="form-control">
-                                                    Camas:
-                                                    <input
-                                                        type="text"
-                                                        name="ncamas"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setnCamas(parseInt(event.target.value));
-                                                        }}
-                                                        required
-                                                        pattern="[0-9]+$" />
-                                                </p>
-                                                <p className="form-control">
-                                                    Banheiros:
-                                                    <input
-                                                        type="text"
-                                                        name="nbanheiros"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setnBanheiros(parseInt(event.target.value));
-                                                        }}
-                                                        required
-                                                        pattern="[0-9]+$" />
-                                                </p>
-                                                <p className="form-control">
-                                                    Ar Condicionado: [1=sim/0=não]
-                                                    <input
-                                                        type="text"
-                                                        name="arcond"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setArcond(Boolean(event.target.value));
-                                                        }}
-                                                        required
-                                                        pattern="[0-9]+$" />
-                                                </p>
-                                                <p className="form-control">
-                                                    wifi: [sim/não]
-                                                    <input
-                                                        type="text"
-                                                        name="wifi"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setWifi(Boolean(event.target.value));
-                                                        }}
-                                                        required
-                                                        pattern="[0-9]+$" />
-                                                </p>
-                                                <p className="form-control">
-                                                    Cozinha: [sim/não]
-                                                    <input
-                                                        type="text"
-                                                        name="cozinha"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setCozinha(Boolean(event.target.value));
-                                                        }}
-                                                        required
-                                                        pattern="[0-9]+$" />
-                                                </p>
-                                                <p className="form-control">
-                                                    FreeParking: [sim/não]
-                                                    <input
-                                                        type="text"
-                                                        name="freeparking"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setFreeParking(Boolean(event.target.value));
-                                                        }}
-                                                        required
-                                                        pattern="[0-9]+$" />
-                                                </p>
-                                                <p className="form-control">
-                                                    Piscina: [sim/não]
-                                                    <input
-                                                        type="text"
-                                                        name="piscina"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setPiscina(Boolean(event.target.value));
-                                                        }}
-                                                        required
-                                                        pattern="[0-9]+$" />
-                                                </p>
-                                                <p className="form-control">
-                                                    Price Per Night: [Ex: 100,00]
-                                                    <input
-                                                        type="text"
-                                                        name="pricepernight"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setPerNight(parseInt(event.target.value));
-                                                        }}
-                                                        required
-                                                        pattern="[0-9]+$" />
-                                                </p>
-                                                <p className="form-control">
-                                                    Descrição: [Ex: com quarto...]
-                                                    <input
-                                                        type="text"
-                                                        name="descricao"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setDescricao(event.target.value);
-                                                        }}
-                                                        required
-                                                        pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
-                                                </p>
-                                                <hr />
-                                                <p className="form-control">
-                                                    Cidade: [Ex: Hotel paulista]
-                                                    <input
-                                                        type="text"
-                                                        name="lugar"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setCidade(event.target.value);
-                                                            setLugar({ cidade: cidade, estado: estado, endereco: endereco });
-                                                        }}
-                                                        required
-                                                        pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
-                                                </p>
-                                                <p className="form-control">
-                                                    Estado: [Ex: RS]
-                                                    <input
-                                                        type="text"
-                                                        name="estado"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setEstado(event.target.value);
-                                                            setLugar({ cidade: cidade, estado: estado, endereco: endereco });
-                                                        }}
-                                                        required
-                                                        pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
-                                                </p>
-                                                <p className="form-control">
-                                                    Endereço: [Ex: Rua das Flores]
-                                                    <input
-                                                        type="text"
-                                                        name="endereco"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setEndereco(event.target.value);
-                                                            setLugar({ cidade: cidade, estado: estado, endereco: endereco });
-                                                        }}
-                                                        required
-                                                        pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
-                                                </p>
-                                                <hr />
-                                                <p className="form-control">
-                                                    Cobra: [sim/não]
-                                                    <input
-                                                        type="text"
-                                                        name="cobra"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setCobraS(Boolean(event.target.value));
-                                                            setTaxaDeServico({ cobra: cobraS, valorPerDay: valorPerDay });
-                                                        }}
-                                                        required
-                                                        pattern="[0-9]+$" />
-                                                </p>
-                                                <p className="form-control">
-                                                    Valor por Dia: [Ex: 100,00]
-                                                    <input
-                                                        type="text"
-                                                        name="valorperday"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setValorPerDay(parseInt(event.target.value));
-                                                            setTaxaDeServico({ cobra: cobraS, valorPerDay: valorPerDay });
-                                                        }}
-                                                        required
-                                                        pattern="[0-9]+$" />
-                                                </p>
-                                                <hr />
-                                                <p className="form-control">
-                                                    Cobra: [sim/não]
-                                                    <input
-                                                        type="text"
-                                                        name="cobra"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setCobraT(Boolean(event.target.value));
-                                                            setTaxaDeLimpeza({ cobra: cobrat, valor: valor });
-                                                        }}
-                                                        required
-                                                        pattern="[0-9]+$" />
-                                                </p>
-                                                <p className="form-control">
-                                                    Valor: [Ex: 100,00]
-                                                    <input
-                                                        type="text"
-                                                        name="valor"
-                                                        className="form-control"
-                                                        onChange={(event) => {
-                                                            setValor(parseInt(event.target.value));
-                                                            setTaxaDeLimpeza({ cobra: cobrat, valor: valor });
-                                                        }}
-                                                        required
-                                                        pattern="[0-9]+$" />
-                                                </p>
-                                                <hr />
-                                                <button
-                                                    className='btn btn-success'
-                                                    type="submit">
-                                                    Salvar</button><button
-                                                        className='btn btn-danger'
-                                                        type="reset">
-                                                    Limpar
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </>
-                    )}
-
+        <div className="abulebule">
+            <form className='pocoyo'>
+                Espaço:
+                <input
+                    type="text"
+                    name="espaco"
+                    className="form-control"
+                    onChange={(event) => {
+                        setEspaco(event.target.value);
+                    }}
+                    required
+                    pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
+            </form>
+            <form className='pocoyo'>
+                Label:
+                <input
+                    type="text"
+                    name="Label"
+                    className="form-control"
+                    onChange={(event) => {
+                        setLabel(event.target.value);
+                    }}
+                    required
+                    pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
+            </form>
+            <form className='pocoyo'>
+                Url da Foto:
+                <input
+                    type="text"
+                    name="Label"
+                    className="form-control"
+                    onChange={(event) => {
+                        setphoto(event.target.value);
+                    }}
+                    required />
+            </form>
+            <form className='pocoyo'>
+                <a href="#" className="card-link"><img src={photo} width="98%" height="320px" /></a>
+            </form>
+            <hr />
+            <form className='pocoyo'>
+                Hóspedes:
+                <input
+                    type="text"
+                    name="nhospedes"
+                    className="form-control"
+                    onChange={(event) => {
+                        setnHospedes(parseInt(event.target.value));
+                    }}
+                    required
+                    pattern="[0-9]+$" />
+            </form>
+            <form className='pocoyo'>
+                <label className="form-label">Quartos: </label>
+                <input
+                    type="text"
+                    name="nquartos"
+                    className="form-control"
+                    onChange={(event) => {
+                        setnQuartos(parseInt(event.target.value));
+                    }}
+                    required
+                    pattern="[0-9]+$" />
+                <div className="valid-feedback">
+                    Ok!
                 </div>
-            </div>
+            </form>
+            <form className='pocoyo'>
+                Camas:
+                <input
+                    type="text"
+                    name="ncamas"
+                    className="form-control"
+                    onChange={(event) => {
+                        setnCamas(parseInt(event.target.value));
+                    }}
+                    required
+                    pattern="[0-9]+$" />
+            </form>
+            <form className='pocoyo'>
+                Banheiros:
+                <input
+                    type="text"
+                    name="nbanheiros"
+                    className="form-control"
+                    onChange={(event) => {
+                        setnBanheiros(parseInt(event.target.value));
+                    }}
+                    required
+                    pattern="[0-9]+$" />
+            </form>
+            <form className='pocoyo'>
+                Ar Condicionado: [1=sim/0=não]
+                <input
+                    type="text"
+                    name="arcond"
+                    className="form-control"
+                    onChange={(event) => {
+                        setArcond(Boolean(event.target.value));
+                    }}
+                    required
+                    pattern="[0-9]+$" />
+            </form>
+            <form className='pocoyo'>
+                wifi: [sim/não]
+                <input
+                    type="text"
+                    name="wifi"
+                    className="form-control"
+                    onChange={(event) => {
+                        setWifi(Boolean(event.target.value));
+                    }}
+                    required
+                    pattern="[0-9]+$" />
+            </form>
+            <form className='pocoyo'>
+                Cozinha: [sim/não]
+                <input
+                    type="text"
+                    name="cozinha"
+                    className="form-control"
+                    onChange={(event) => {
+                        setCozinha(Boolean(event.target.value));
+                    }}
+                    required
+                    pattern="[0-9]+$" />
+            </form>
+            <form className='pocoyo'>
+                FreeParking: [sim/não]
+                <input
+                    type="text"
+                    name="freeparking"
+                    className="form-control"
+                    onChange={(event) => {
+                        setFreeParking(Boolean(event.target.value));
+                    }}
+                    required
+                    pattern="[0-9]+$" />
+            </form>
+            <form className='pocoyo'>
+                Piscina: [sim/não]
+                <input
+                    type="text"
+                    name="piscina"
+                    className="form-control"
+                    onChange={(event) => {
+                        setPiscina(Boolean(event.target.value));
+                    }}
+                    required
+                    pattern="[0-9]+$" />
+            </form>
+            <form className='pocoyo'>
+                Price Per Night: [Ex: 100,00]
+                <input
+                    type="text"
+                    name="pricepernight"
+                    className="form-control"
+                    onChange={(event) => {
+                        setPerNight(parseInt(event.target.value));
+                    }}
+                    required
+                    pattern="[0-9]+$" />
+            </form>
+            <form className='pocoyo'>
+                Descrição: [Ex: com quarto...]
+                <input
+                    type="text"
+                    name="descricao"
+                    className="form-control"
+                    onChange={(event) => {
+                        setDescricao(event.target.value);
+                    }}
+                    required
+                    pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
+            </form>
+            <hr />
+            <form className='pocoyo'>
+                Cidade: [Ex: Hotel paulista]
+                <input
+                    type="text"
+                    name="lugar"
+                    className="form-control"
+                    onChange={(event) => {
+                        setCidade(event.target.value);
+                        setLugar({ cidade: cidade, estado: estado, endereco: endereco });
+                    }}
+                    required
+                    pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
+            </form>
+            <form className='pocoyo'>
+                Estado: [Ex: RS]
+                <input
+                    type="text"
+                    name="estado"
+                    className="form-control"
+                    onChange={(event) => {
+                        setEstado(event.target.value);
+                        setLugar({ cidade: cidade, estado: estado, endereco: endereco });
+                    }}
+                    required
+                    pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
+            </form>
+            <form className='pocoyo'>
+                Endereço: [Ex: Rua das Flores]
+                <input
+                    type="text"
+                    name="endereco"
+                    className="form-control"
+                    onChange={(event) => {
+                        setEndereco(event.target.value);
+                        setLugar({ cidade: cidade, estado: estado, endereco: endereco });
+                    }}
+                    required
+                    pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
+            </form>
+            <hr />
+            <form className='pocoyo'>
+                Cobra: [sim/não]
+                <input
+                    type="text"
+                    name="cobra"
+                    className="form-control"
+                    onChange={(event) => {
+                        setCobraS(Boolean(event.target.value));
+                        setTaxaDeServico({ cobra: cobraS, valorPerDay: valorPerDay });
+                    }}
+                    required
+                    pattern="[0-9]+$" />
+            </form>
+            <form className='pocoyo'>
+                Valor por Dia: [Ex: 100,00]
+                <input
+                    type="text"
+                    name="valorperday"
+                    className="form-control"
+                    onChange={(event) => {
+                        setValorPerDay(parseInt(event.target.value));
+                        setTaxaDeServico({ cobra: cobraS, valorPerDay: valorPerDay });
+                    }}
+                    required
+                    pattern="[0-9]+$" />
+            </form>
+            <hr />
+            <form className='pocoyo'>
+                Cobra: [sim/não]
+                <input
+                    type="text"
+                    name="cobra"
+                    className="form-control"
+                    onChange={(event) => {
+                        setCobraT(Boolean(event.target.value));
+                        setTaxaDeLimpeza({ cobra: cobrat, valor: valor });
+                    }}
+                    required
+                    pattern="[0-9]+$" />
+            </form>
+            <form className='pocoyo'>
+                Valor: [Ex: 100,00]
+                <input
+                    type="text"
+                    name="valor"
+                    className="form-control"
+                    onChange={(event) => {
+                        setValor(parseInt(event.target.value));
+                        setTaxaDeLimpeza({ cobra: cobrat, valor: valor });
+                    }}
+                    required
+                    pattern="[0-9]+$" />
+            </form>
+            <hr />
+            <button
+                className='btn btn-success'
+                type="submit">
+                Salvar</button><button
+                    className='btn btn-danger'
+                    type="reset">
+                Limpar
+            </button>
         </div>
     );
 }

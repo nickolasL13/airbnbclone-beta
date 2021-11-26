@@ -46,17 +46,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "description": "- Ajuste de Pesquisa (24/11)\r - Ajuste de Conexão com Mongo (24/11)\r - Adicionar imóvel (25/11 - 26/11)\r - Reserva de Imóvel (25/11 - 26/11)",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nickolasL13/airbnbclone-beta-frontend.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nickolasL13/airbnbclone-beta-frontend/issues"
-  },
-  "homepage": "https://github.com/nickolasL13/airbnbclone-beta-frontend#readme"
+  }
 }

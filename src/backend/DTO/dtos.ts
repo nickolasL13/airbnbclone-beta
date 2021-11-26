@@ -34,3 +34,14 @@ export default interface Imovel {
     taxaDeLimpeza: TaxaDeLimpeza,
     photo: string,
 }
+
+export interface Locacao{
+    [x: string]: any;
+    idImovel:    Number;
+    checkin:     Date;
+    checkout:    Date;
+    nome:        string;
+    telefone:    number,
+    email:       string,
+    total:       Number
+}

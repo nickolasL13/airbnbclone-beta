@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Imovel from '../backend/DTO/dtos';
+import Imovel, {Locacao} from '../backend/DTO/dtos';
 import fetch from 'node-fetch';
 import { Container, Button, Col, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,12 +9,23 @@ import { multiplica } from '../backend/useful/multiplicar';
 
 
 export default function PaginaImovel() {
+    const hoje = new Date();
     const params = useParams();
     const navigate = useNavigate();
+    const Idparams = parseInt(params.id!);
     const [dados, setDados] = useState<Array<Imovel>>();
     const [url, setUrl] = useState(process.env.URL!);
     const [carregando, setCarregando] = useState(false);
     const [erro, setErro] = useState(false);
+
+    const [idImovel, SetIdImovel] = useState(Idparams);
+    const [checkin,setCheckin] = useState(new Date());
+    const [checkout,setCheckout] = useState(new Date());
+    const [nome,setNome] = useState('');
+    const [telefone,setTelefone] = useState(0);
+    const [email, setEmail] = useState('');
+    const [total, setTotal]= useState(0);
+
 
     let diasReserva = 3;
 
@@ -39,6 +50,43 @@ export default function PaginaImovel() {
 
         consultarWebServer();
     }, []);
+
+    async function CriarReserva() {
+        setErro(false);
+        setCarregando(true);
+        try {
+          const post: Locacao = {
+          idImovel:  idImovel,
+          checkin:   checkin,
+          checkout:  checkout,
+          nome:      nome,
+          telefone:  telefone,
+          email:     email,
+          total:    total
+        };
+        const resposta = await fetch('http://localhost:3000/locacao/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(post)
+        });
+        if (resposta.ok) {
+            const dadosjson: Locacao = await resposta.json();
+            console.log('Dados:');
+            console.log(dadosjson);
+            
+        } else {
+            console.log('POST status:', resposta.status);
+            console.log('POST statusText:', resposta.statusText);
+            setErro(true);
+        }
+        } catch (error) {
+          setErro(true);
+        }
+        setCarregando(false);
+    };
+
 
     return (
         <>
@@ -79,6 +127,97 @@ export default function PaginaImovel() {
                             </Button>
                         </Container>
 
+                        <hr/>
+              <div className="rightPosition">
+                <p className="card-text">
+                  Check-In: 
+                  <input 
+                    type="date" 
+                    name="check-in"
+                    id='checkin'
+                    min={hoje.getFullYear().toString()+'-'+(hoje.getMonth()+1).toString()+'-'+hoje.getDate().toString()}
+                    className= "form-control"
+                    required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
+                    onChange={(event)=>{
+                    setCheckin(new Date(event.target.value));
+                   }}
+                   
+                />
+              </p>
+              
+              <p className="card-text">
+              Check-Out:  
+              <input 
+                type="date" 
+                name="check-out"
+                min={checkin.getFullYear().toString()+'-'+(checkin.getMonth()+1).toString()+'-'+(checkin.getDate()+2).toString()}
+                required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"   
+                className= "form-control"
+                onChange={(event)=>{
+                setCheckout(new Date(event.target.value));
+              }}
+              />
+              </p>
+              <p className="card-text">
+              Nome:
+              <input 
+                type="text" 
+                name="Nome"
+                placeholder="Entre com o Nome"
+                className= "form-control"
+                onChange={(event)=>{
+                setNome(event.target.value);
+               }}
+               required
+               />
+              </p>
+              <p className="card-text">
+              Telefone:
+              <input 
+                type="Telephone" 
+                name="telefone"
+                placeholder="Entre com o telefone"
+                className= "form-control"
+                onChange={(event)=>{
+                setTelefone(parseInt(event.target.value));
+               }}
+               required
+              />
+              </p>
+
+              <p className="card-text">
+              Email:
+              <input 
+                type="email" 
+                name="email"
+                placeholder="Entre com o email"
+                className= "form-control"
+                onChange={(event)=>{
+                setEmail((event.target.value));
+               }}
+               required
+              />
+              </p>
+                
+              <p className="card-text">
+              Total:
+              <input 
+                type="text" 
+                name="total"
+                placeholder="Calculando.."
+                className= "form-control"
+                onChange={(event)=>{
+                setTotal(parseInt(event.target.value));
+               }}
+               readOnly
+              />
+              </p>
+                <button onClick={(e=>{
+                   CriarReserva();
+                })}
+                type="submit">Reservar</button>
+                
+                </div>
                         <Button className="botaolindo" variant="light" onClick={() => {
                             navigate('/');
                         }}>Voltar</Button>

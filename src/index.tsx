@@ -16,6 +16,7 @@ import PaginaPiscina from './Pages/PaginaPiscina';
 import PaginaCidade from './Pages/PaginaCidade';
 import PaginaEstado from './Pages/PaginaEstado';
 import PaginaCadastro from './Pages/PaginaCadastro';
+import PaginaCadastroEdicao from './Pages/PaginaCadastroEdicao';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
@@ -26,6 +27,7 @@ ReactDOM.render(
         <Route index element={< PaginaPrincipal />}/>
         <Route path= "*" element= {<PaginaNaoEncontrada />}/>
         <Route path="cadastro" element= {< PaginaCadastro/>} />
+        <Route path="cadastroEdicao/:id" element= {<PaginaCadastroEdicao />} />
         <Route path="arCond" element= {< PaginaArCond/>} />
         <Route path="wifi" element= {< PaginaWifi/>} />
         <Route path="cozinha" element= {< PaginaCozinha/>} />

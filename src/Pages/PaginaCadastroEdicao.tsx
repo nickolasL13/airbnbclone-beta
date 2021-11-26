@@ -8,10 +8,13 @@ import { useNavigate, useParams } from 'react-router';
 //https://wbruno.com.br/html/validando-formularios-apenas-com-html5/
 
 export default function PaginaCadastro() {
+  
+  let parametros = useParams();
+  let id: string = parametros.iId!;
   let navigate = useNavigate();
   const [dados, setDados] = useState<Imovel>();
   const [acao, setAcao] = useState('tabela');
-  const [Id, setId] = useState('0');
+  const [Id, setId] = useState(id);
 
   const [cidade, setCidade] = useState('');
   const [estado, setEstado] = useState('');
@@ -43,12 +46,65 @@ export default function PaginaCadastro() {
   
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState(false);
-  const [url, setUrl] = useState(`https://ws-airbnbclone-1226.herokuapp.com`);
-  const [urlInsertUpdate, setUrlInsertUpdate] = useState('https://ws-airbnbclone-1226.herokuapp.com');
-    
+  const [url, setUrl] = useState(`https://ws-airbnbclone-1226.herokuapp.com/${Id}`);
+  const [urlInsertUpdate, setUrlInsertUpdate] = useState(`https://ws-airbnbclone-1226.herokuapp.com/${Id}`);
+  const [search, setSearch] = useState('');
+  
   const success = () => toast.success('Dados enviados!');
   const error = () => toast.error('Não foi possível!');
   const waiting= ()=> toast.info('Carregando...');
+  const limpezaFormulario= ()=> toast.info('Formulário Limpo');
+
+  async function putData() {
+    const id: string = Id;
+     const putData:Imovel ={
+        iId: id,
+        espaco: espaco,
+        label: label,
+        nHospedes: nHospedes,  
+        nQuartos: nQuartos,
+        nCamas: nCamas,
+        nBanheiros: nBanheiros,
+        arCond:arCond,
+        wifi: wifi,
+        cozinha: cozinha,
+        freeParking: freeParking,
+        piscina: piscina, 
+        pricePerNight: pricePerNight,
+        descricao: descricao,
+        lugar: lugar,
+        taxaDeServico: taxaDeServico,
+        taxaDeLimpeza: taxaDeLimpeza,
+        photo: photo
+     };
+
+      try{
+
+        const resposta = await fetch(`https://ws-airbnbclone-1226.herokuapp.com/${Id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(putData)
+      });
+      if (resposta.ok) {
+          const dadosjson: Imovel = await resposta.json();
+          console.log('Dados:');
+          console.log(dadosjson);
+         success();
+      } else {
+          console.log('POST status:', resposta.status);
+          console.log('POST statusText:', resposta.statusText);
+          setErro(true);
+        }
+
+      } catch (error) {
+        setErro(true);
+      }
+      navigate('/cadastro');
+      setCarregando(false);
+    }
+  
   
   useEffect(() => { 
     async function consulta() {
@@ -71,164 +127,29 @@ export default function PaginaCadastro() {
      consulta();
    },[url]);
 
-  useEffect(() => { 
-    async function insertUpdate() {
-      setErro(false);
-      setCarregando(true);
-     try {
-      const post:Imovel ={
-        iId: iId,
-        espaco: espaco,
-        label: label,
-        nHospedes: nHospedes,  
-        nQuartos: nQuartos,
-        nCamas: nCamas,
-        nBanheiros: nBanheiros,
-        arCond:arCond,
-        wifi: wifi,
-        cozinha: cozinha,
-        freeParking: freeParking,
-        piscina: piscina, 
-        pricePerNight: pricePerNight,
-        descricao: descricao,
-        lugar: lugar,
-        taxaDeServico: taxaDeServico,
-        taxaDeLimpeza: taxaDeLimpeza,
-        photo: photo
-     };
-        const resposta = await fetch(urlInsertUpdate, {
-            method: 'POST',
-            headers: {
-          'Content-Type': 'application/json'
-        },
-            body: JSON.stringify(post)
-        });
-        if (resposta.ok) {
-            const dadosjson: Imovel = await resposta.json();
-            console.log('Dados:');
-            console.log(dadosjson);
-        } else {
-            console.log('POST status:', resposta.status);
-            console.log('POST statusText:', resposta.statusText);
-            setErro(true);
-        }
-        } catch (error) {
-          setErro(true);
-        }
-        setCarregando(false);
-      }
-        insertUpdate();
-    },[urlInsertUpdate]);
-
-  return (
-<>
-
-<div className="container">
-<div className="row">
-
-{(acao=='tabela') &&
- dados && (
-<div>
-  <form onSubmit={event => {
-    setUrl(`https://ws-airbnbclone-1226.herokuapp.com`);
-    setAcao('inserir');
-    event.preventDefault();
- }}>
-    <button 
-        className='btn btn-success'
-        type="submit">
-        Novo
-    </button>
-    </form>
-
-        <div className="col">
-         <div className="card" style={{width: '80%'}}>
-          <div className="card-body">
-            <div className="card-caption">
-            <table  width={'98%'} className='table'>
-              <tr>
-                <th scope="col">Espaço</th>
-                <th scope="col">Label</th>
-                <th scope="col">Acomodações</th>
-                <th scope="col">Oferecimentos</th>
-                <th scope="col">Ação</th>
-              </tr>
-              {dados.map((dados: Imovel) =>{
-                return(
-                <tr className='evenRow'>
-                  <td scope="row">{dados.espaco}</td>
-                  <td scope="row">{dados.label}</td>
-                  <td scope="row">
-                  {dados.nHospedes} Hóspedes | 
-                  {dados.nQuartos} Quartos | 
-                  {dados.nCamas} Camas | 
-                  {dados.nBanheiros} Banheiros
-                  </td>
-                  <td scope="row">
-                  {dados.arCond} Ar Condicionado | 
-                  {dados.wifi} Wifi | 
-                  {dados.cozinha} Cozinha | 
-                  {dados.freeParking} Estacionamento | 
-                  {dados.piscina} Piscina
-                  </td>
-                  <td scope="row">
-                  
-                  <button
-                    className='btn btn-warning'
-                    onClick={() => {
-                      navigate(`/cadastroEdicao/${dados.iId}`);
-                   }}>
-                    Editar
-                  </button>
-                  
-                  <form onSubmit={event => {
-                      setAcao('tabela')
-                      setUrl(`https://ws-airbnbclone-1226.herokuapp.com/`);
-                      event.preventDefault();
-                  }}
-                  style={
-                  { 
-                    float: 'left' , 
-                    display: 'inline-block'
-                  }}>
-                  <button
-                    className='btn btn-danger'
-                    type="submit">
-                    Excluir
-                  </button>
-                  </form>
-                  </td>
-                </tr>
-              )
-              })}
-
-            </table>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div>
-    )
-}
-
-
-{(acao=='inserir') && (
-  <>
-        <form onSubmit={event => {
-            setAcao('tabela');
-                setUrlInsertUpdate(`https://ws-airbnbclone-1226.herokuapp.com/`);
-                success();
-                event.preventDefault();
-            } }>
-            <div className="col">
-                <div className="card" style={{ width: '80%' }}>
-                    <div className="card-body">
-                        <div className="card-caption">
+    return (
+        <>
+          
+          <div className="container">
+          <div className="row">
+          <form>
+        {erro && <div>Não encontramos itens!</div>}
+            {carregando ? (
+              <div>Carregando...</div>
+            ) : (
+            dados && (
+        
+                
+              <div className="col">
+               <div className="card" style={{width: '80%'}}>
+                <div className="card-body">
+                  <div className="card-caption">   
                             <p className="form-control">
                                 iId:
                                 <input
                                     type="text"
                                     name="iId"
+                                    value={dados.iId}
                                     className="form-control"
                                     onChange={(event) => {
                                        setiId(event.target.value);
@@ -236,22 +157,24 @@ export default function PaginaCadastro() {
                                 required />
                             </p>
                             <p className="form-control">
-                                Espaço:
+                                Espaço: {dados.espaco}
                                 <input
                                     type="text"
                                     name="espaco"
+                                    value={dados.espaco}
                                     className="form-control"
                                     onChange={(event) => {
                                         setEspaco(event.target.value);
                                     } }
-                                    required/>
-                                {/*//pattern="[a-zA-Záãâéêíîóôõú\s]+$" */}
+                                    required
+                                pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
                             </p>
                             <p className="form-control">
                                 Label:
                                 <input
                                     type="text"
                                     name="Label"
+                                    value={dados.label}
                                     className="form-control"
                                     onChange={(event) => {
                                         setLabel(event.target.value);
@@ -264,6 +187,7 @@ export default function PaginaCadastro() {
                                 <input
                                     type="text"
                                     name="Label"
+                                    value={dados.photo}
                                     className="form-control"
                                     onChange={(event) => {
                                        setphoto(event.target.value);
@@ -279,6 +203,7 @@ export default function PaginaCadastro() {
                                 <input
                                     type="text"
                                     name="nhospedes"
+                                    value={dados.nHospedes}
                                     className="form-control"
                                     onChange={(event) => {
                                        setnHospedes(parseInt(event.target.value));
@@ -291,6 +216,7 @@ export default function PaginaCadastro() {
                                 <input
                                     type="text"
                                     name="nquartos"
+                                    value={dados.nQuartos}
                                     className="form-control"
                                     onChange={(event) => {
                                         setnQuartos(parseInt(event.target.value));
@@ -306,6 +232,7 @@ export default function PaginaCadastro() {
                                     <input
                                         type="text"
                                         name="ncamas"
+                                        value={dados.nCamas}
                                         className="form-control"
                                         onChange={(event) => {
                                             setnCamas(parseInt(event.target.value));
@@ -318,6 +245,7 @@ export default function PaginaCadastro() {
                                 <input
                                     type="text"
                                     name="nbanheiros"
+                                    value={dados.nBanheiros}
                                     className="form-control"
                                     onChange={(event) => {
                                         setnBanheiros(parseInt(event.target.value));
@@ -330,6 +258,7 @@ export default function PaginaCadastro() {
                                 <input
                                     type="text"
                                     name="arcond"
+                                    value={Boolean(dados.arCond).toString()}
                                     className="form-control"
                                     onChange={(event) => {
                                         setArcond(Boolean(event.target.value));
@@ -342,6 +271,7 @@ export default function PaginaCadastro() {
                                 <input
                                     type="text"
                                     name="wifi"
+                                    value={Boolean(dados.wifi).toString()}
                                     className="form-control"
                                     onChange={(event) => {
                                         setWifi(Boolean(event.target.value));
@@ -354,6 +284,7 @@ export default function PaginaCadastro() {
                                 <input
                                     type="text"
                                     name="cozinha"
+                                    value={Boolean(dados.cozinha).toString()}
                                     className="form-control"
                                     onChange={(event) => {
                                         setCozinha(Boolean(event.target.value));
@@ -366,6 +297,7 @@ export default function PaginaCadastro() {
                                 <input
                                     type="text"
                                     name="freeparking"
+                                    value={Boolean(dados.freeParking).toString()}
                                     className="form-control"
                                     onChange={(event) => {
                                         setFreeParking(Boolean(event.target.value));
@@ -378,6 +310,7 @@ export default function PaginaCadastro() {
                                 <input
                                     type="text"
                                     name="piscina"
+                                    value={Boolean(dados.piscina).toString()}
                                     className="form-control"
                                     onChange={(event) => {
                                         setPiscina(Boolean(event.target.value));
@@ -390,6 +323,7 @@ export default function PaginaCadastro() {
                                <input
                                     type="text"
                                     name="pricepernight"
+                                    value={dados.pricePerNight}
                                     className="form-control"
                                     onChange={(event) => {
                                         setPerNight(parseInt(event.target.value));
@@ -402,12 +336,13 @@ export default function PaginaCadastro() {
                                 <input
                                     type="text"
                                     name="descricao"
+                                    value={dados.descricao}
                                     className="form-control"
                                     onChange={(event) => {
                                         setDescricao(event.target.value);
                                     } }
-                                    required/>
-                                {/*pattern="[a-zA-Záãâéêíîóôõú\s]+$" />*/}
+                                    required
+                                pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
                             </p>
                             <hr/>
                             <p className="form-control">
@@ -415,6 +350,7 @@ export default function PaginaCadastro() {
                                     <input
                                         type="text"
                                         name="lugar"
+                                        //value={//dados.lugar}
                                         className="form-control"
                                         onChange={(event) => {
                                             setCidade(event.target.value);
@@ -428,6 +364,7 @@ export default function PaginaCadastro() {
                                 <input
                                     type="text"
                                     name="estado"
+                                   // value={dados.lugar['estado']}
                                     className="form-control"
                                     onChange={(event) => {
                                         setEstado(event.target.value);
@@ -442,12 +379,13 @@ export default function PaginaCadastro() {
                                     type="text"
                                     name="endereco"
                                     className="form-control"
+                                   // value={dados.lugar['endereco']}
                                     onChange={(event) => {
                                         setEndereco(event.target.value);
                                         setLugar({cidade: cidade,estado: estado, endereco: endereco});
                                     } }
-                                    required/>
-                                {/*pattern="[a-zA-Záãâéêíîóôõú\s]+$" */}
+                                    required
+                                pattern="[a-zA-Záãâéêíîóôõú\s]+$" />
                             </p>
                             <hr/>
                             <p className="form-control">
@@ -455,6 +393,7 @@ export default function PaginaCadastro() {
                                 <input
                                     type="text"
                                     name="cobra"
+                                    value={Boolean(dados.taxaDeServico).toString()}
                                     className="form-control"
                                     onChange={(event) => {
                                         setCobraS(Boolean(event.target.value));
@@ -468,6 +407,7 @@ export default function PaginaCadastro() {
                                 <input
                                     type="text"
                                     name="valorperday"
+                                    //value={dados.taxaDeServico['valorPerDay']}
                                     className="form-control"
                                     onChange={(event) => {
                                         setValorPerDay(parseInt(event.target.value));
@@ -482,6 +422,7 @@ export default function PaginaCadastro() {
                                 <input
                                     type="text"
                                     name="cobra"
+                                    //value={dados.taxaDeLimpeza['cobra'].toString()}
                                     className="form-control"
                                     onChange={(event) => {
                                        setCobraT(Boolean(event.target.value));
@@ -495,6 +436,7 @@ export default function PaginaCadastro() {
                                 <input
                                     type="text"
                                     name="valor"
+                                    //value={dados.taxaDeLimpeza['valor']}
                                     className="form-control"
                                     onChange={(event) => {
                                        setValor(parseInt(event.target.value));
@@ -504,10 +446,12 @@ export default function PaginaCadastro() {
                                 pattern="[0-9]+$" />
                             </p>
                             <hr/>
-                            <button
-                                className='btn btn-success'
-                                type="submit">
-                                Salvar</button><button
+                            <button className="btn btn-sm btn-success"     
+                             onClick={
+                                (event=>{
+                                 putData();
+                               })}> Salvar</button>
+                            <button onClick={limpezaFormulario}
                                 className='btn btn-danger'
                                 type="reset">
                                 Limpar
@@ -515,15 +459,9 @@ export default function PaginaCadastro() {
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
-    </>
-)}
-
-</div>
-</div>
-</>
-);
-}
-
-
+       </div>
+   ))}
+   </form>
+    </div> 
+    </div> 
+    </> ) }

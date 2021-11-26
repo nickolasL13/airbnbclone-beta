@@ -1,20 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import Imovel from './../backend/DTO/dtos';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css'; 
 import { useNavigate, useParams } from 'react-router';
 
 //npm i react-toastify
 //https://wbruno.com.br/html/validando-formularios-apenas-com-html5/
 
-export default function PaginaCadastro() {
-  
-  let parametros = useParams();
-  let id: string = parametros.iId!;
-  let navigate = useNavigate();
+export default function PaginaCadastroEdicao() {  
+    let parametros = useParams();
+    let Idparametro: string = parametros.iId!;
+    let navigate = useNavigate();
   const [dados, setDados] = useState<Imovel>();
-  const [acao, setAcao] = useState('tabela');
-  const [Id, setId] = useState(id);
+  const [acao, setAcao] = useState('alterar');
+  const [Id, setId] = useState(Idparametro);
 
   const [cidade, setCidade] = useState('');
   const [estado, setEstado] = useState('');
@@ -46,14 +45,33 @@ export default function PaginaCadastro() {
   
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState(false);
-  const [url, setUrl] = useState(`https://ws-airbnbclone-1226.herokuapp.com/${Id}`);
-  const [urlInsertUpdate, setUrlInsertUpdate] = useState(`https://ws-airbnbclone-1226.herokuapp.com/${Id}`);
-  const [search, setSearch] = useState('');
-  
-  const success = () => toast.success('Dados enviados!');
+  const [url, setUrl] = useState(`http://localhost:3000/${Id}`);
+    
+  const salvo = () => toast.success('Dados salvos!');
   const error = () => toast.error('Não foi possível!');
   const waiting= ()=> toast.info('Carregando...');
   const limpezaFormulario= ()=> toast.info('Formulário Limpo');
+
+  useEffect(() => { 
+    async function consulta() {
+       setErro(false);
+       setCarregando(true);
+       try {
+         const resultado = await fetch(url);
+         if (resultado.ok) {
+           const dados: Imovel = await resultado.json();
+           setDados(dados);
+           console.log(dados);
+         } else {
+           setErro(true);
+         }
+       } catch (error) {
+         setErro(true);
+       }
+       setCarregando(false);
+     }
+     consulta();
+   },[Id]);
 
   async function putData() {
     const id: string = Id;
@@ -91,7 +109,7 @@ export default function PaginaCadastro() {
           const dadosjson: Imovel = await resposta.json();
           console.log('Dados:');
           console.log(dadosjson);
-         success();
+          salvo();
       } else {
           console.log('POST status:', resposta.status);
           console.log('POST statusText:', resposta.statusText);
@@ -105,34 +123,16 @@ export default function PaginaCadastro() {
       setCarregando(false);
     }
   
-  
-  useEffect(() => { 
-    async function consulta() {
-       setErro(false);
-       setCarregando(true);
-       try {
-         const resultado = await fetch(url);
-         if (resultado.ok) {
-           const dados: Imovel = await resultado.json();
-           setDados(dados);
-           console.log(dados);
-         } else {
-           setErro(true);
-         }
-       } catch (error) {
-         setErro(true);
-       }
-       setCarregando(false);
-     }
-     consulta();
-   },[url]);
-
     return (
         <>
-          
+         {(acao=='alterar') && (
+  
           <div className="container">
           <div className="row">
-          <form>
+          <form onSubmit={event => {
+              setUrl(`http://localhost:3000/${Id}`);
+              event.preventDefault();
+          }}>
         {erro && <div>Não encontramos itens!</div>}
             {carregando ? (
               <div>Carregando...</div>
@@ -143,13 +143,14 @@ export default function PaginaCadastro() {
               <div className="col">
                <div className="card" style={{width: '80%'}}>
                 <div className="card-body">
-                  <div className="card-caption">   
+                  <div className="card-caption"> 
+                 
                             <p className="form-control">
-                                iId:
+                                iId: {Id}//{espaco}
                                 <input
                                     type="text"
                                     name="iId"
-                                    value={dados.iId}
+                                    value={iId}
                                     className="form-control"
                                     onChange={(event) => {
                                        setiId(event.target.value);
@@ -258,7 +259,7 @@ export default function PaginaCadastro() {
                                 <input
                                     type="text"
                                     name="arcond"
-                                    value={Boolean(dados.arCond).toString()}
+                                    value={Boolean(arCond).toString()}
                                     className="form-control"
                                     onChange={(event) => {
                                         setArcond(Boolean(event.target.value));
@@ -463,5 +464,6 @@ export default function PaginaCadastro() {
    ))}
    </form>
     </div> 
-    </div> 
+    </div>
+         )} 
     </> ) }

@@ -27,7 +27,7 @@ ReactDOM.render(
         <Route index element={< PaginaPrincipal />}/>
         <Route path= "*" element= {<PaginaNaoEncontrada />}/>
         <Route path="cadastro" element= {< PaginaCadastro/>} />
-        <Route path="cadastroEdicao/:id" element= {<PaginaCadastroEdicao />} />
+        <Route path="cadastroEdicao/:iId" element= {<PaginaCadastroEdicao />} />
         <Route path="arCond" element= {< PaginaArCond/>} />
         <Route path="wifi" element= {< PaginaWifi/>} />
         <Route path="cozinha" element= {< PaginaCozinha/>} />

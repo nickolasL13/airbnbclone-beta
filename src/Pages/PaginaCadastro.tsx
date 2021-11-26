@@ -149,8 +149,8 @@ export default function PaginaCadastro() {
                                             <div className="card-caption">
                                                 <table width={'98%'} className='table'>
                                                     <tr>
-                                                        <th scope="col">Espaço</th>
                                                         <th scope="col">Label</th>
+                                                        <th scope="col">Espaço</th>
                                                         <th scope="col">Acomodações</th>
                                                         <th scope="col">Oferecimentos</th>
                                                         <th scope="col">Ação</th>
@@ -158,20 +158,30 @@ export default function PaginaCadastro() {
                                                     {dados.map((dados: Imovel) => {
                                                         return (
                                                             <tr className='evenRow'>
-                                                                <td scope="row">{dados.espaco}</td>
-                                                                <td scope="row">{dados.label}</td>
-                                                                <td scope="row">
-                                                                    {dados.nHospedes} Hóspedes |
-                                                                    {dados.nQuartos} Quartos |
-                                                                    {dados.nCamas} Camas |
+                                                                <td scope="row" className='label'>{dados.label}</td>
+                                                                <td scope="row" className='espaco'>{dados.espaco}</td>
+                                                                <td scope="row" className='acomodacoes'>
+                                                                    <div className='p'>
+                                                                    {dados.nHospedes} Hóspedes 
+                                                                    </div>
+                                                                    <div className='p'>                                                                   
+                                                                    {dados.nQuartos} Quartos 
+                                                                    </div>
+                                                                    <div className='p'>
                                                                     {dados.nBanheiros} Banheiros
+                                                                    </div>
+                                                                    <div className='p'>
+                                                                    {dados.nCamas} Camas
+                                                                    </div>
+
                                                                 </td>
-                                                                <td scope="row">
-                                                                    {dados.arCond} Ar Condicionado |
-                                                                    {dados.wifi} Wifi |
-                                                                    {dados.cozinha} Cozinha |
-                                                                    {dados.freeParking} Estacionamento |
-                                                                    {dados.piscina} Piscina
+                                                                <td scope="row" className='oferecimentos'>
+                                                                        {(dados.arCond) && (<div className='o'> Ar Condicionado </div>)}
+                                                                        {(dados.wifi) && (<div className='o'> Wifi </div>)}
+                                                                        {(dados.cozinha) && (<div className='o'> Cozinha </div>)}
+                                                                        {(dados.piscina) && (<div className='o'> Piscina </div>)}
+                                                                        {(dados.freeParking) && (<div className='o'> Estacionamento Gratuito </div>)}
+
                                                                 </td>
                                                                 <td scope="row">
 

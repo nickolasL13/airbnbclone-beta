@@ -113,3 +113,26 @@ body {
     margin-top: 1%;
     margin-left:70%;
 }
+
+.label {
+    width: 25%;
+    padding-right: 3%;
+}
+
+.espaco {
+    padding-right: 3%;
+}
+
+.acomodacoes {
+    width: 18%;
+    padding-right: 3%;
+}
+
+.oferecimentos {
+    width: 25%;
+    padding-right: 3%;
+}
+
+.p {
+    width: 100%;
+}

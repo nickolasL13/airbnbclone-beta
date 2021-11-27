@@ -17,7 +17,6 @@ export default function PaginaCadastro() {
     const [estado, setEstado] = useState('');
     const [endereco, setEndereco] = useState('');
 
-    const [iId, setiId] = useState('');
     const [espaco, setEspaco] = useState('');
     const [label, setLabel] = useState('');
     const [nHospedes, setnHospedes] = useState(0);
@@ -36,11 +35,10 @@ export default function PaginaCadastro() {
     const [taxaDeLimpeza, setTaxaDeLimpeza] = useState<{ cobra: boolean, valor: number | undefined }>({ cobra: false, valor: undefined });
     const [photo, setphoto] = useState('');
 
+
     const [carregando, setCarregando] = useState(false);
     const [erro, setErro] = useState(false);
     const [urlInsertUpdate, setUrlInsertUpdate] = useState('http://localhost:5000');
-    const [search, setSearch] = useState('');
-    const [update, setUpdate] = useState(true);
 
     const success = () => toast.success('Dados enviados!');
     const error = () => toast.error('Não foi possível!');
@@ -51,7 +49,7 @@ export default function PaginaCadastro() {
         setCarregando(true);
         try {
             const post: Imovel = {
-                iId: iId,
+                iId: idGenerator(),
                 espaco: espaco,
                 label: label,
                 nHospedes: nHospedes,
@@ -428,7 +426,7 @@ export default function PaginaCadastro() {
                 {taxaDeLimpeza.cobra && (
                     <form className='pocoyo'>
                         <div className='texto'>
-                            Valor por Dia:
+                            Valor:
                         </div>
                         <input
                             type="text"
@@ -448,7 +446,9 @@ export default function PaginaCadastro() {
                     className='btn btn-success'
                     type="submit"
                     onClick={() => {
-                       insertUpdate();
+                        insertUpdate();
+                        setSta
+                        window.location.reload();
                     }}
                 >
                     Salvar
@@ -456,6 +456,9 @@ export default function PaginaCadastro() {
                 <button
                     className='btn btn-danger'
                     type="reset"
+                    onClick={() => {
+                        window.location.reload();
+                    }}
                 >
                     Limpar
                 </button>

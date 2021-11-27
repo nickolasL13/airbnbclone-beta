@@ -115,7 +115,7 @@ function App() {
           >
             <Dropdown.Item className="navredondal">
               {
-                <Button className="dropButton navredondal" onClick={() => {
+                <Button className="dropButton" onClick={() => {
                   setDropdown('Cidade');
                   setMode(true);
               }}>Cidade</Button>
@@ -124,7 +124,7 @@ function App() {
 
             <Dropdown.Item className="navredondal" >
               {
-                <Button className="dropButton navredondal" onClick={() => {
+                <Button className="dropButton" onClick={() => {
                   setDropdown('Estado');
                   setMode(false);
               }}>Estado</Button>}
@@ -154,7 +154,7 @@ function App() {
         <section className="d-flex justify-content-center teste"> <Outlet /> </section>
       </main>
       <footer className="main">
-        <h6 className="vyn"> Airbnb Clone v.ynmf </h6>
+        <h6 className="d-flex justify-content-center vyn"> <b>Airbnb Clone v.ynmf</b> </h6>
       </footer>
     </>
   );

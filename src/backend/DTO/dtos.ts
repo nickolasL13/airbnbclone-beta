@@ -1,14 +1,14 @@
-interface TaxaDeServico {
+export interface TaxaDeServico {
     cobra: boolean,
     valorPerDay?: number,
 }
 
-interface TaxaDeLimpeza {
+export interface TaxaDeLimpeza {
     cobra: boolean,
     valor?: number,
 }
 
-interface Lugar {
+export interface Lugar {
     cidade: string,
     estado: string,
     endereco: string,

@@ -10,8 +10,8 @@ import idGenerator from '../useful/idGenerator';
 
 export default function PaginaCadastro() {
     let navigate = useNavigate();
-    const [dados, setDados] = useState<Imovel[]>();
     const [Id, setId] = useState('0');
+    const [imovel, setImovel] = useState<Imovel>();
 
     const [cidade, setCidade] = useState('');
     const [estado, setEstado] = useState('');
@@ -38,8 +38,7 @@ export default function PaginaCadastro() {
 
     const [carregando, setCarregando] = useState(false);
     const [erro, setErro] = useState(false);
-    const [url, setUrl] = useState('http://localhost:5000/');
-    const [urlInsertUpdate, setUrlInsertUpdate] = useState('http://localhost:5000/');
+    const [urlInsertUpdate, setUrlInsertUpdate] = useState('http://localhost:5000');
     const [search, setSearch] = useState('');
     const [update, setUpdate] = useState(true);
 
@@ -47,31 +46,9 @@ export default function PaginaCadastro() {
     const error = () => toast.error('Não foi possível!');
     const waiting = () => toast.info('Carregando...');
 
-    useEffect(() => {
-        async function consulta() {
-            setErro(false);
-            setCarregando(true);
-            try {
-                const resultado = await fetch(url);
-                if (resultado.ok) {
-                    const dados: Imovel[] = await resultado.json();
-                    setDados(dados);
-                    console.log(dados);
-                } else {
-                    setErro(true);
-                }
-            } catch (error) {
-                setErro(true);
-            }
-            setCarregando(false);
-        }
-        consulta();
-    }, [url]);
-
     async function insertUpdate() {
         setErro(false);
         setCarregando(true);
-        setiId(idGenerator());
         try {
             const post: Imovel = {
                 iId: iId,
@@ -100,6 +77,9 @@ export default function PaginaCadastro() {
                 },
                 body: JSON.stringify(post)
             });
+
+            console.log(JSON.stringify(post));
+
             if (resposta.ok) {
                 const dadosjson: Imovel = await resposta.json();
                 console.log('Dados:');
@@ -113,12 +93,10 @@ export default function PaginaCadastro() {
             setErro(true);
         }
         setCarregando(false);
-        navigate('/tabelaCadastro');
     }
 
     return (
         <div className="abulebule">
-            <hr />
             <form className='pocoyo'>
                 <div className='texto'>
                     Espaço:
@@ -470,8 +448,7 @@ export default function PaginaCadastro() {
                     className='btn btn-success'
                     type="submit"
                     onClick={() => {
-                        setUpdate(!update);
-                        insertUpdate();
+                       insertUpdate();
                     }}
                 >
                     Salvar
@@ -483,7 +460,7 @@ export default function PaginaCadastro() {
                     Limpar
                 </button>
             </div>
-        </div>
+        </div >
     );
 }
 

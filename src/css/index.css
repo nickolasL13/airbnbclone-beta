@@ -37,13 +37,17 @@ body {
     margin-left: 15px;
 }
 
+.main {
+    margin-top: 3%;
+}
+
 .vyn {
-    margin-left: 200px;
     color: rgb(232,90,93);
 }
 
 .ImovelContainer {
-    margin-bottom: 15px;
+    margin-bottom: 1%;
+    margin-top: 9%;
 }
 
 .ImovelButton {
@@ -73,10 +77,6 @@ body {
     background-color: transparent;
     color: black;
     border: solid transparent;
-}
-
-.main {
-    margin-left:35%;    
 }
 
 .ImageButton {
@@ -178,6 +178,8 @@ body {
 }
 
 .navredondal{
+    color: #e85a5d;
+    border-color:  #e85a5d;
     border-top-right-radius: 18px;
     margin-right: 1%;
     border-bottom-right-radius: 12px;
@@ -185,12 +187,26 @@ body {
     border-top-left-radius: 12px;
 }
 
+.navredondal:hover{
+    color: white;
+    background-color: #e85a5d;
+    border-color:  #e85a5d; 
+}
+
 .navredondar{
+    color: #e85a5d;
+    border-color:  #e85a5d;
     border-top-right-radius: 18px;
     margin-left: 1%;
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 18px;
     border-top-left-radius: 12px;
+}
+
+.navredondar:hover{
+    color: white;
+    background-color: #e85a5d;
+    border-color:  #e85a5d; 
 }
 
 .searchbar{
@@ -208,11 +224,11 @@ body {
 .btn-success{
     margin-right:2%;
     margin-top:2%;
-    border-radius: 20px;
+    border-radius: 12px;
 }
 
 .btn-danger{
     margin-left:2%;
     margin-top:2%;
-    border-radius: 20px;
+    border-radius: 12px;
 }

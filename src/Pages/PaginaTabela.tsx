@@ -10,7 +10,6 @@ import { useNavigate, useParams } from 'react-router';
 export default function PaginaCadastro() {
     let navigate = useNavigate();
     const [dados, setDados] = useState<Imovel[]>();
-    const [Id, setId] = useState('0');
 
     const [cidade, setCidade] = useState('');
     const [estado, setEstado] = useState('');
@@ -20,25 +19,6 @@ export default function PaginaCadastro() {
     const [valorPerDay, setValorPerDay] = useState(0);
     const [cobrat, setCobraT] = useState(false);
     const [valor, setValor] = useState(0);
-
-    const [iId, setiId] = useState('');
-    const [espaco, setEspaco] = useState('');
-    const [label, setLabel] = useState('');
-    const [nHospedes, setnHospedes] = useState(0);
-    const [nQuartos, setnQuartos] = useState(0);
-    const [nCamas, setnCamas] = useState(0);
-    const [nBanheiros, setnBanheiros] = useState(0);
-    const [arCond, setArcond] = useState(false);
-    const [wifi, setWifi] = useState(false);
-    const [cozinha, setCozinha] = useState(false);
-    const [freeParking, setFreeParking] = useState(false);
-    const [piscina, setPiscina] = useState(false);
-    const [pricePerNight, setPerNight] = useState(0);
-    const [descricao, setDescricao] = useState('');
-    const [lugar, setLugar] = useState({ cidade: cidade, estado: estado, endereco: endereco });
-    const [taxaDeServico, setTaxaDeServico] = useState({ cobra: cobraS, valorPerDay: valorPerDay });
-    const [taxaDeLimpeza, setTaxaDeLimpeza] = useState({ cobra: cobrat, valor: valor });
-    const [photo, setphoto] = useState('');
 
     const [carregando, setCarregando] = useState(false);
     const [erro, setErro] = useState(false);
@@ -70,55 +50,6 @@ export default function PaginaCadastro() {
         }
         consulta();
     }, [url]);
-
-    useEffect(() => {
-        async function insertUpdate() {
-            setErro(false);
-            setCarregando(true);
-            try {
-                const post: Imovel = {
-                    iId: iId,
-                    espaco: espaco,
-                    label: label,
-                    nHospedes: nHospedes,
-                    nQuartos: nQuartos,
-                    nCamas: nCamas,
-                    nBanheiros: nBanheiros,
-                    arCond: arCond,
-                    wifi: wifi,
-                    cozinha: cozinha,
-                    freeParking: freeParking,
-                    piscina: piscina,
-                    pricePerNight: pricePerNight,
-                    descricao: descricao,
-                    lugar: lugar,
-                    taxaDeServico: taxaDeServico,
-                    taxaDeLimpeza: taxaDeLimpeza,
-                    photo: photo
-                };
-                const resposta = await fetch(urlInsertUpdate, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(post)
-                });
-                if (resposta.ok) {
-                    const dadosjson: Imovel = await resposta.json();
-                    console.log('Dados:');
-                    console.log(dadosjson);
-                } else {
-                    console.log('POST status:', resposta.status);
-                    console.log('POST statusText:', resposta.statusText);
-                    setErro(true);
-                }
-            } catch (error) {
-                setErro(true);
-            }
-            setCarregando(false);
-        }
-        insertUpdate();
-    }, [urlInsertUpdate]);
 
     return (
         <div className="d-flex justify-content-center lista">

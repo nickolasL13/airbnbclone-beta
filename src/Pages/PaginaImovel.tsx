@@ -119,7 +119,6 @@ export default function PaginaImovel() {
                                         </Card.Body>
                                     </Card>
                                     <h5 className="priceNight">R${dados[0].pricePerNight} / Noite</h5>
-                                    <h4 className="priceTotal">R${multiplica((dados[0].pricePerNight),diasReserva)} / Total </h4>
                                     <h4> por {diasReserva} noites</h4>
                                     <h6 className="offers">O que esse lugar oferece???</h6>
                                     <div>{dados[0].arCond && (" • Ar Condicionado")}{dados[0].wifi && (" • Wifi")}{dados[0].cozinha && (" • Cozinha")}{dados[0].freeParking && (" • Estacionamento Gratuito")}{dados[0].piscina && (" • Piscina • ")} </div>
@@ -206,6 +205,8 @@ export default function PaginaImovel() {
                 name="total"
                 placeholder="Calculando.."
                 className= "form-control"
+                /*multiplica (checkin, checkout, pricePerNight, taxaServico, taxaLimpeza)*/
+                value={multiplica(checkin, checkout, dados[0].pricePerNight, dados[0].taxaDeServico.valorPerDay!, dados[0].taxaDeLimpeza.valor!)}
                 onChange={(event)=>{
                 setTotal(parseInt(event.target.value));
                }}

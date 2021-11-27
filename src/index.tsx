@@ -15,6 +15,7 @@ import PaginaFreePark from './Pages/PaginaFreePark';
 import PaginaPiscina from './Pages/PaginaPiscina';
 import PaginaCidade from './Pages/PaginaCidade';
 import PaginaEstado from './Pages/PaginaEstado';
+import PaginaCadastro from './Pages/PaginaCadastro';
 import PaginaTabela from './Pages/PaginaTabela';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -35,8 +36,8 @@ ReactDOM.render(
         <Route path="espaco/:espaco" element= {<PaginaEspaco />} />
         <Route path="cidade/:cidade" element= {<PaginaCidade />} />
         <Route path="estado/:estado" element= {<PaginaEstado />} />
-        <Route path="cadastro" element= {<PaginaCadastro />} />
-        <Route path="tabela" element= {<PaginaTabela />} />
+        <Route path="tabelaCadastro/cadastro" element= {<PaginaCadastro />} />
+        <Route path="tabelaCadastro" element= {<PaginaTabela />} />
       </Route>
     </Routes>
     </BrowserRouter>

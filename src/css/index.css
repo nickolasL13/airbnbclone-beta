@@ -141,8 +141,78 @@ body {
 .pocoyo {
     padding-top: 2%;
     padding-bottom: 2%;
+    color: rgb(112,112,113);
 }
 
 .form-control {
     border-radius: 100px;
+}
+
+.texto {
+    padding-bottom: 1%;
+}
+
+.oferecimentosCadastro{
+    flex-direction:row;
+    display: flex;
+    padding-bottom: 2%;
+}
+
+.oferecimentosLabel{
+    padding-right: 2%;
+    color: rgb(112,112,113);
+}
+
+.possui{
+    padding-left: 1.2%;
+    color: rgb(232,90,93);
+}
+
+.form-check-input:checked{
+    background-color: #e85a5d;
+    border-color: #e85a5d;
+}
+
+.form-check-input::after{
+    box-shadow: #e85a5d;
+}
+
+.navredondal{
+    border-top-right-radius: 18px;
+    margin-right: 1%;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 18px;
+    border-top-left-radius: 12px;
+}
+
+.navredondar{
+    border-top-right-radius: 18px;
+    margin-left: 1%;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 18px;
+    border-top-left-radius: 12px;
+}
+
+.searchbar{
+    width: 35%;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 18px;
+    border-top-left-radius: 12px;
+}
+
+.outlined-secondary{
+    border-radius: 100px;
+}
+
+.btn-success{
+    margin-right:2%;
+    margin-top:2%;
+    border-radius: 20px;
+}
+
+.btn-danger{
+    margin-left:2%;
+    margin-top:2%;
+    border-radius: 20px;
 }

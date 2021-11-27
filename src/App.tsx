@@ -107,24 +107,24 @@ function App() {
       <main >
         <h5 className="d-flex justify-content-center welcome"><b>Bem-vindo ao Airbnb Clone!</b></h5>
         <div className="d-flex justify-content-center" >
-        <InputGroup className="mb-3">
           <DropdownButton
-            variant="outline-secondary"
+            className="navredondal"
+            variant="outline-secondary navredondal"
             title={`${dropdown}`}
             id="input-group-dropdown-1"
           >
-            <Dropdown.Item>
+            <Dropdown.Item className="navredondal">
               {
-                <Button className="dropButton" onClick={() => {
+                <Button className="dropButton navredondal" onClick={() => {
                   setDropdown('Cidade');
                   setMode(true);
               }}>Cidade</Button>
               }
               </Dropdown.Item>
 
-            <Dropdown.Item >
+            <Dropdown.Item className="navredondal" >
               {
-                <Button className="dropButton" onClick={() => {
+                <Button className="dropButton navredondal" onClick={() => {
                   setDropdown('Estado');
                   setMode(false);
               }}>Estado</Button>}
@@ -132,12 +132,14 @@ function App() {
 
           </DropdownButton>
           <FormControl
+            className="searchbar"
             placeholder="Para onde você quer ir?"
             onChange={event => {
               setLugar(event.target.value);
             }}
           />
           <Button 
+          className="navredondar"
           variant="outline-secondary" 
           id="button-addon2"
           onClick={() => {
@@ -148,7 +150,6 @@ function App() {
           >
             Pesquisar
           </Button>
-        </InputGroup>
         </div>
         <section className="d-flex justify-content-center teste"> <Outlet /> </section>
       </main>

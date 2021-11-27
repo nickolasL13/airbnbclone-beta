@@ -167,3 +167,52 @@ body {
     padding-left: 1.2%;
     color: rgb(232,90,93);
 }
+
+.form-check-input:checked{
+    background-color: #e85a5d;
+    border-color: #e85a5d;
+}
+
+.form-check-input::after{
+    box-shadow: #e85a5d;
+}
+
+.navredondal{
+    border-top-right-radius: 18px;
+    margin-right: 1%;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 18px;
+    border-top-left-radius: 12px;
+}
+
+.navredondar{
+    border-top-right-radius: 18px;
+    margin-left: 1%;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 18px;
+    border-top-left-radius: 12px;
+}
+
+.searchbar{
+    width: 35%;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 18px;
+    border-top-left-radius: 12px;
+}
+
+.outlined-secondary{
+    border-radius: 100px;
+}
+
+.btn-success{
+    margin-right:2%;
+    margin-top:2%;
+    border-radius: 20px;
+}
+
+.btn-danger{
+    margin-left:2%;
+    margin-top:2%;
+    border-radius: 20px;
+}

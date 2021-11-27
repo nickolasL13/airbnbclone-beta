@@ -65,7 +65,7 @@ export default function PaginaCadastro() {
                             }}
                                 className="d-flex justify-content-center form">
                                 <button
-                                    className='btn btn-success'
+                                    className='btn btn-success botaonovo'
                                     type="submit">
                                     Novo
                                 </button>
@@ -112,15 +112,6 @@ export default function PaginaCadastro() {
 
                                                             </td>
                                                             <td scope="row">
-
-                                                                <button
-                                                                    className='btn btn-warning'
-                                                                    onClick={() => {
-                                                                        navigate(`/cadastroEdicao/${dados.iId}`);
-                                                                    }}>
-                                                                    Editar
-                                                                </button>
-
                                                                 <form onSubmit={event => {
                                                                     setUrl(`https://ws-airbnbclone-1226.herokuapp.com/`);
                                                                     event.preventDefault();
@@ -131,7 +122,7 @@ export default function PaginaCadastro() {
                                                                             display: 'inline-block'
                                                                         }}>
                                                                     <button
-                                                                        className='btn btn-danger'
+                                                                        className='btn btn-danger botaoexcluir'
                                                                         type="submit">
                                                                         Excluir
                                                                     </button>

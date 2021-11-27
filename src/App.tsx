@@ -115,16 +115,17 @@ function App() {
           >
             <Dropdown.Item className="navredondal">
               {
-                <Button className="dropButton" onClick={() => {
+                <Button className="dropButton botaocidadeeestado" onClick={() => {
                   setDropdown('Cidade');
                   setMode(true);
-              }}>Cidade</Button>
+              } 
+            }>Cidade</Button>
               }
               </Dropdown.Item>
 
             <Dropdown.Item className="navredondal" >
               {
-                <Button className="dropButton" onClick={() => {
+                <Button className="dropButton botaocidadeeestado" onClick={() => {
                   setDropdown('Estado');
                   setMode(false);
               }}>Estado</Button>}

@@ -35,20 +35,22 @@ export default function PaginaPrincipal() {
         consultarWebServer();
     }, []);
 
+    console.log(dados)
+
     useEffect(() => {
         function Elements(dados: Array<Imovel>) {
             let element = [];
             for (let i of dados) {
                 element.push(
                     <>
-                            <Container className="d-flex justify-content-center ImovelContainer ">
+                            <Container className="d-flex justify-content-center ImovelContainer">
                                 <Button
                                     variant="light"
                                     onClick={() => {
                                         navigate(`/imovel/${i.iId}`)
                                     }}
                                     >
-                                        <img src={`/images/${i.photo}`} alt="" className="ImageButton"/>
+                                        <img src={i.photo} alt="" className="ImageButton"/>
                                     <Col className="ImovelButton">
                                         <div>Espaço inteiro: {i.espaco}</div>
                                         <h6>{i.label}</h6>

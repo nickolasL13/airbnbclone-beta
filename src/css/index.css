@@ -70,7 +70,6 @@ body {
     background-color: transparent;
     color: black;
     border: solid transparent;
-    margin-left: 18.5%;
 }
 
 .dropButton:hover {
@@ -83,6 +82,8 @@ body {
     margin-bottom: 15px;
     margin-top: 15px;
     border-radius: 15px;
+    width: 400px;
+    height: 300px;
 }
 
 .price {
@@ -188,10 +189,11 @@ body {
 }
 
 .navredondal:hover{
-    color: white;
-    background-color: #e85a5d;
+    color: #e85a5d;
+    background-color: white;
     border-color:  #e85a5d; 
 }
+
 
 .navredondar{
     color: #e85a5d;
@@ -245,8 +247,4 @@ body {
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 18px;
     border-top-left-radius: 12px;
-}
-
-.botaocidadeeestado {
-    
 }

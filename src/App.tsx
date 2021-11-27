@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
-import { Navbar, Nav, NavDropdown, Button, InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Button, FormControl, DropdownButton, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./css/index.css";
 import { ToastContainer } from 'react-toastify';
@@ -113,23 +113,22 @@ function App() {
             title={`${dropdown}`}
             id="input-group-dropdown-1"
           >
-            <Dropdown.Item className="navredondal">
+            <Dropdown.Item className="d-flex justify-content-center dropButton">
               {
-                <Button className="dropButton botaocidadeeestado" onClick={() => {
+                <Button className="dropButton" onClick={() => {
                   setDropdown('Cidade');
                   setMode(true);
-              } 
-            }>Cidade</Button>
+                }}>Cidade</Button>
               }
-              </Dropdown.Item>
+            </Dropdown.Item>
 
-            <Dropdown.Item className="navredondal" >
+            <Dropdown.Item className="d-flex justify-content-center dropButton" >
               {
-                <Button className="dropButton botaocidadeeestado" onClick={() => {
+                <Button className="dropButton" onClick={() => {
                   setDropdown('Estado');
                   setMode(false);
-              }}>Estado</Button>}
-              </Dropdown.Item>
+                }}>Estado</Button>}
+            </Dropdown.Item>
 
           </DropdownButton>
           <FormControl
@@ -139,20 +138,23 @@ function App() {
               setLugar(event.target.value);
             }}
           />
-          <Button 
-          className="navredondar"
-          variant="outline-secondary" 
-          id="button-addon2"
-          onClick={() => {
-            (mode ? navigate(`/cidade/${lugar}`) : 
-            (navigate(`/estado/${lugar}`)));
-            
-          }}
+          <Button
+            className="navredondar"
+            variant="outline-secondary"
+            id="button-addon2"
+            onClick={() => {
+              (mode ? navigate(`/cidade/${lugar}`) :
+                (navigate(`/estado/${lugar}`)));
+
+            }}
           >
             Pesquisar
           </Button>
         </div>
-        <section className="d-flex justify-content-center teste"> <Outlet /> </section>
+        <section className="d-flex justify-content-center teste">
+          <ToastContainer/>
+          <Outlet />
+        </section>
       </main>
       <footer className="main">
         <h6 className="d-flex justify-content-center vyn"> <b>Airbnb Clone v.ynmf</b> </h6>

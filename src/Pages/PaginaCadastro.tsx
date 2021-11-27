@@ -447,7 +447,6 @@ export default function PaginaCadastro() {
                     type="submit"
                     onClick={() => {
                         insertUpdate();
-                        setSta
                         window.location.reload();
                     }}
                 >

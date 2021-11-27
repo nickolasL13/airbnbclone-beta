@@ -12,6 +12,7 @@ export function multiplica (checkIn: Date, checkOut: Date, pricePerNight: number
     const calcTaxaLimpeza = (taxaLimpeza == 0) ? 0 : taxaLimpeza;
     const calcPricePerNight = pricePerNight * qtdDias;
   
+    
     //pricePerNight * qtDias + qtdDias * taxaServiço + taxaLimpeza.
     return calcPricePerNight + calcTaxaLimpeza + calcTaxaServico; 
   };

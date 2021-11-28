@@ -18,7 +18,7 @@ export default interface Imovel {
     iId: string,
     espaco: string
     label: string,
-    nHospedes: number,  
+    nHospedes: number,
     nQuartos: number,
     nCamas: number,
     nBanheiros: number,
@@ -26,7 +26,7 @@ export default interface Imovel {
     wifi: boolean,
     cozinha: boolean,
     freeParking: boolean,
-    piscina: boolean, 
+    piscina: boolean,
     pricePerNight: number,
     descricao: string,
     lugar: Lugar,
@@ -35,13 +35,13 @@ export default interface Imovel {
     photo: string,
 }
 
-export interface Locacao{
-    [x: string]: any;
-    idImovel:    Number;
-    checkin:     Date;
-    checkout:    Date;
-    nome:        string;
-    telefone:    number,
-    email:       string,
-    total:       Number
+export interface Locacao {
+    iId: String,
+    idImovel: String,
+    checkin: Date,
+    checkout: Date,
+    nome: string,
+    telefone: string,
+    email: string,
+    total: string,
 }

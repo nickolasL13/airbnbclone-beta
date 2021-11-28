@@ -23,7 +23,7 @@ export default function PaginaCadastro() {
     const [carregando, setCarregando] = useState(false);
     const [erro, setErro] = useState(false);
     const [url, setUrl] = useState('http://localhost:5000/');
-    const [urlInsertUpdate, setUrlInsertUpdate] = useState('https://ws-airbnbclone-1226.herokuapp.com');
+    const [urlInsertUpdate, setUrlInsertUpdate] = useState('http://localhost:5000/imovel');
     const [search, setSearch] = useState('');
 
     const success = () => toast.success('Dados enviados!');
@@ -51,16 +51,40 @@ export default function PaginaCadastro() {
         consulta();
     }, [url]);
 
+    async function deleteUser(id: string) {
+        setErro(false);
+        setCarregando(true);
+        try {
+            const resposta = await fetch(`${urlInsertUpdate}/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+
+            if (resposta.ok) {
+                const dadosjson: Imovel = await resposta.json();
+                console.log('Dados:');
+                console.log(dadosjson);
+            } else {
+                console.log('POST status:', resposta.status);
+                console.log('POST statusText:', resposta.statusText);
+                setErro(true);
+            }
+        } catch (error) {
+            setErro(true);
+        }
+        setCarregando(false);
+    }
+
     return (
-        <div className="d-flex justify-content-center lista">
+        <div className="d-flex justify-content-center tabela">
             <div>
                 <div className="row">
                     {dados && (
                         <div>
                             <form onSubmit={event => {
-                                setUrl(`https://ws-airbnbclone-1226.herokuapp.com`);
                                 navigate('cadastro');
-                                success();
                                 event.preventDefault();
                             }}
                                 className="d-flex justify-content-center form">
@@ -72,13 +96,13 @@ export default function PaginaCadastro() {
                             </form>
 
                             <div className="d-flex justify-content-center col">
-                                <div className="card" style={{ width: '80%' }}>
+                                <div className="card">
                                     <div className="card-body">
                                         <div className="card-caption">
-                                            <table width={'98%'} className='table'>
+                                            <table className='table'>
                                                 <tr>
-                                                    <th scope="col">Label</th>
                                                     <th scope="col">Espaço</th>
+                                                    <th scope="col">Label</th>
                                                     <th scope="col">Acomodações</th>
                                                     <th scope="col">Oferecimentos</th>
                                                     <th scope="col">Ação</th>
@@ -86,8 +110,8 @@ export default function PaginaCadastro() {
                                                 {dados.map((dados: Imovel) => {
                                                     return (
                                                         <tr className='evenRow'>
-                                                            <td scope="row" className='label'>{dados.label}</td>
                                                             <td scope="row" className='espaco'>{dados.espaco}</td>
+                                                            <td scope="row" className='label'>{dados.label}</td>
                                                             <td scope="row" className='acomodacoes'>
                                                                 <div className='p'>
                                                                     {dados.nHospedes} Hóspedes
@@ -113,7 +137,6 @@ export default function PaginaCadastro() {
                                                             </td>
                                                             <td scope="row">
                                                                 <form onSubmit={event => {
-                                                                    setUrl(`https://ws-airbnbclone-1226.herokuapp.com/`);
                                                                     event.preventDefault();
                                                                 }}
                                                                     style={
@@ -122,6 +145,10 @@ export default function PaginaCadastro() {
                                                                             display: 'inline-block'
                                                                         }}>
                                                                     <button
+                                                                        onClick={() => {
+                                                                            deleteUser(dados.iId);
+                                                                            window.location.reload();
+                                                                        }}
                                                                         className='btn btn-danger botaoexcluir'
                                                                         type="submit">
                                                                         Excluir
@@ -131,7 +158,6 @@ export default function PaginaCadastro() {
                                                         </tr>
                                                     )
                                                 })}
-
                                             </table>
                                         </div>
                                     </div>

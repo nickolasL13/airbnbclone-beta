@@ -396,7 +396,7 @@ export default function PaginaCadastro() {
                             name="valorperday"
                             className="form-control"
                             onChange={(event) => {
-                                setTaxaDeServico({ cobra: taxaDeServico.cobra, valor: taxaDeServico.valor });
+                                setTaxaDeServico({ cobra: taxaDeServico.cobra, valor: Number(event.target.value) });
                             }}
                             required
                             pattern="[0-9]+$" />
@@ -433,7 +433,7 @@ export default function PaginaCadastro() {
                             name="valorperday"
                             className="form-control"
                             onChange={(event) => {
-                                setTaxaDeLimpeza({ cobra: taxaDeLimpeza.cobra, valor: taxaDeLimpeza.valor });
+                                setTaxaDeLimpeza({ cobra: taxaDeLimpeza.cobra, valor: Number(event.target.value) });
                             }}
                             required
                             pattern="[0-9]+$" />

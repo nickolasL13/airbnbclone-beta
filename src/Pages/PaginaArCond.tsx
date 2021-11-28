@@ -49,7 +49,7 @@ export default function PaginaPrincipal() {
                                 onClick={() => {
                                     navigate(`/imovel/${i.iId}`)
                                 }}>
-                                <img src={`/images/${i.photo}`} alt="" className="ImageButton" />
+                                <img src={i.photo} alt="" className="ImageButton"/>
                                 <Col className="ImovelButton">
                                     <div>Espaço inteiro: {i.espaco}</div>
                                     <h6>{i.label}</h6>

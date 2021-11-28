@@ -36,8 +36,8 @@ export default interface Imovel {
 }
 
 export interface Locacao {
-    iId: String,
-    idImovel: String,
+    iId: string,
+    idImovel: string,
     checkin: Date,
     checkout: Date,
     nome: string,

@@ -17,6 +17,7 @@ import PaginaCidade from './Pages/PaginaCidade';
 import PaginaEstado from './Pages/PaginaEstado';
 import PaginaCadastro from './Pages/PaginaCadastro';
 import PaginaTabela from './Pages/PaginaTabela';
+import PaginaReserva from './Pages/PaginaReserva';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
@@ -38,6 +39,7 @@ ReactDOM.render(
         <Route path="estado/:estado" element= {<PaginaEstado />} />
         <Route path="tabelaCadastro/cadastro" element= {<PaginaCadastro />} />
         <Route path="tabelaCadastro" element= {<PaginaTabela />} />
+        <Route path="tabelaReserva" element= {<PaginaReserva />} />
       </Route>
     </Routes>
     </BrowserRouter>

@@ -8,7 +8,6 @@ import '../css/index.css';
 import { multiplica } from '../backend/useful/multiplicar';
 import idGenerator from '../useful/idGenerator';
 
-
 export default function PaginaImovel() {
     const hoje = new Date();
     const params = useParams();
@@ -27,6 +26,9 @@ export default function PaginaImovel() {
     const [email, setEmail] = useState('');
     const [total, setTotal] = useState(0);
 
+    const [pricePerNight, SetPricePerNight]= useState(0);
+    const [valor, SetValor]= useState(0);
+    const [valorPerDay, SetvalorPerDay]= useState(0);
 
     let diasReserva = 3;
 
@@ -39,6 +41,11 @@ export default function PaginaImovel() {
                 if (resultado.ok) {
                     const dados: Array<Imovel> = await resultado.json();
                     setDados(dados);
+
+                    SetPricePerNight(dados[0].pricePerNight)
+                    SetvalorPerDay(dados[0].taxaDeServico.valorPerDay!)
+                    SetValor(dados[0].taxaDeLimpeza.valor!)
+
                 } else {
                     setErro(true);
                 }
@@ -56,6 +63,7 @@ export default function PaginaImovel() {
         setErro(false);
         setCarregando(true);
         console.log(total);
+        const totalValue:string = multiplica(checkin, checkout, pricePerNight, valorPerDay!, valor!).toString();
         try {
             const post: Locacao = {
                 iId: idGenerator(),
@@ -65,7 +73,7 @@ export default function PaginaImovel() {
                 nome: nome,
                 telefone: telefone,
                 email: email,
-                total: String(total),
+                total: totalValue,
             };
             const resposta = await fetch('http://localhost:5000/reserva', {
                 method: 'POST',
@@ -93,13 +101,13 @@ export default function PaginaImovel() {
         setCarregando(false);
     };
 
-
     return (
         <>
             {carregando ? (
                 <div>Carregando...</div>
             ) : (
                 dados && (
+            
                     <div className="containerImoveis">
                         <Container>
                             <Button
@@ -145,7 +153,6 @@ export default function PaginaImovel() {
                                     onChange={(event) => {
                                         setCheckin(new Date(event.target.value));
                                     }}
-
                                 />
                             </p>
 
@@ -211,9 +218,6 @@ export default function PaginaImovel() {
                                     className="form-control"
                                     /*multiplica (checkin, checkout, pricePerNight, taxaServico, taxaLimpeza)*/
                                     value={multiplica(checkin, checkout, dados[0].pricePerNight, dados[0].taxaDeServico.valorPerDay!, dados[0].taxaDeLimpeza.valor!)}
-                                    onChange={(event) => {
-                                        setTotal(Number(event.target.value));
-                                    }}
                                     readOnly
                                 />
                             </p>
@@ -221,11 +225,7 @@ export default function PaginaImovel() {
                                CriarReserva();
                             })}
                                 type="submit">Reservar</button>
-
                         </div>
-                        <p>
-                            {<div>{multiplica(checkin, checkout, dados[0].pricePerNight, dados[0].taxaDeServico.valorPerDay!, dados[0].taxaDeLimpeza.valor!)}</div>}
-                        </p>
                         <Button className="botaolindo" variant="light" onClick={() => {
                             navigate('/');
                         }}>Voltar</Button>

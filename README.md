@@ -1,10 +1,17 @@
-# Coisas a Fazer:
-- Ajuste de Pesquisa (24/11)
-- Ajuste de Conexão com Mongo (24/11)
-- Adicionar imóvel (25/11 - 26/11)
-- Reserva de Imóvel (25/11 - 26/11)
+# airbnbclonefront - versão beta
+## Coisas alteradas:
+- Ajuste das funções de busca no WebService
+- Adição da PáginaTabela (Demonstra um resumo de todos os imóveis cadastrados)
+- Ajuste de rotas e interface para PáginaTabela
+- Adição da PaginaCadastro (Página na qual se cadastra um imóvel)
+- Ajuste de rotas e interface para PáginaCadastro
+- Adição da ferramente de reserva na PáginaImovel
+- Adição da PaginaReserva (Demonstra um resumo de todas as reservas)
+- Ajuste de rotas e interface para PaginaReserva
 
-# airbnbclonefront
+url: https://airbnbclone-beta-front.herokuapp.com/
+
+# airbnbclonefront - versão alfa
 
 url: https://server-airbnbclone-1226.herokuapp.com
 
